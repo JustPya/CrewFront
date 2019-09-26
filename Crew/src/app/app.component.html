@@ -1,0 +1,24 @@
+<ion-app>
+  <ion-router-outlet main></ion-router-outlet>
+</ion-app>
+
+<ion-menu side="start" menuId="first" class="my-custom-menu">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <div id = "idDiv">
+          <ion-icon class = "icon" name="planet"></ion-icon>
+          <div>
+            <ion-label class = "label">{{name}}</ion-label>
+          </div>
+        </div>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-menu-toggle auto-hide = false *ngFor = "let p of appMenu">
+        <ion-item lines = "none" [routerDirection] = "'root'" [routerLink] = "[p.url]">
+          <ion-icon  color = "secondary" slot = "start" [name] = "p.icon"></ion-icon>
+          <ion-label>{{p.title}}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-content>
+  </ion-menu>
