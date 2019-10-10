@@ -10,7 +10,7 @@ export class TabsPage {
 
   constructor(private menu: MenuController) {}
 
-  dosome() {
+  openMenu() {
     console.log("do some");
     this.menu.open("first");
   }
