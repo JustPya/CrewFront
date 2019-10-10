@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule) },
+  { path: '', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
   { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
   { path: 'contact-us', loadChildren: './contact-us/contact-us.module#ContactUsPageModule' },
-  { path: 'friends', loadChildren: './friends/friends.module#FriendsPageModule' }
+  { path: 'friends', loadChildren: './friends/friends.module#FriendsPageModule' },
+  { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' }
 
 ];
 
