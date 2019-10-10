@@ -13,7 +13,7 @@ export class AppComponent {
 
   name = "Fernanda Moreno";
   public appMenu = [
-    {title: 'Home', url: '/tabs/wallet', icon: 'home'},
+    {title: 'My Wallet', url: '/tabs/wallet', icon: 'home'},
     {title: 'Contact us', url: '/contact-us', icon: 'mail'},
     {title: 'Settings', url: '/settings', icon: 'settings'},
     {title: 'Friends', url: '/friends', icon: 'contacts'},

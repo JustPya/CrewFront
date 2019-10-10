@@ -1,0 +1,35 @@
+<ion-content class="center" color="primary">
+  <div class="classdiv">
+    <form>
+      <ion-list class="backcolor">
+        <ion-card>
+          <ion-card-header color="light">
+            <div class="imgclass">
+            <ion-icon color="primary" class = "icon" name="planet"></ion-icon>
+            </div>
+          </ion-card-header>  
+          <ion-card-content class="colorcard">
+            <ion-item>
+              <ion-label position="stacked">Correo <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input type="text" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Contraseña<ion-text color="danger">*</ion-text></ion-label>
+              <ion-input [type]="passwordType" required></ion-input>
+              <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+            </ion-item>
+            <div class="ion-padding">
+                <ion-button expand="block"  class="ion-no-margin"><b>Sing in</b></ion-button>
+            </div>
+            <ion-item lines="none">
+              <a class="aclass"slot="end" routerLink="settings">Forgot your password?</a>
+            </ion-item> 
+          </ion-card-content>
+        </ion-card>
+      </ion-list> 
+    </form>
+  </div>
+  <ion-item class="wrap" lines="none" color="primary">
+    <a slot="end" routerLink="register">Don't have an account?</a>
+  </ion-item>
+</ion-content>
