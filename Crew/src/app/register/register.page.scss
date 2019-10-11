@@ -1,0 +1,58 @@
+.backcolor{
+    background-color: #0CD1E8;
+}
+.colorcard{
+    background-color: white;
+}
+
+a{
+    font-size: 80%;
+    color: #DEDEDE;
+}
+.aclass{
+    font-size: 80%;
+    color: #0CD1E8; 
+}
+
+.classdiv{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+form{
+    width: 100%;
+}
+
+ion-icon{
+    margin: auto;
+    display: block;
+    font-size: 1000%;    
+}
+
+ion-button{
+    --background-activated: #44DDE9;
+}
+
+ion-card-subtitle{
+    color: #757575;
+}
+
+.termsclass{
+    font-size: 80%;
+    color: #757575;
+}
+
+.imgclass{
+    border-bottom: solid #DEDEDE 1px;
+}
+
+.passwordIcon{
+    font-size:2rem !important;
+    position: relative !important;
+    top: 22px !important;
+    margin: 0 auto !important;
+ }

@@ -3,23 +3,22 @@
     <form>
       <ion-list class="backcolor">
         <ion-card>
+          <img src="assets/login.jpg" />
           <ion-card-header color="light">
-            <div class="imgclass">
-            <ion-icon color="primary" class = "icon" name="planet"></ion-icon>
-            </div>
+            <ion-card-title><b>LOGIN</b></ion-card-title>
           </ion-card-header>  
           <ion-card-content class="colorcard">
             <ion-item>
-              <ion-label position="stacked">Correo <ion-text color="danger">*</ion-text></ion-label>
+              <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
               <ion-input type="text" required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="stacked">Contraseña<ion-text color="danger">*</ion-text></ion-label>
+              <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
               <ion-input [type]="passwordType" required></ion-input>
               <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
             </ion-item>
             <div class="ion-padding">
-                <ion-button expand="block"  class="ion-no-margin"><b>Sing in</b></ion-button>
+                <ion-button expand="block"  class="ion-no-margin"><b>Sing In</b></ion-button>
             </div>
             <ion-item lines="none">
               <a class="aclass"slot="end" routerLink="settings">Forgot your password?</a>

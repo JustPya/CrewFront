@@ -7,7 +7,7 @@
 
 a{
     font-size: 80%;
-    color: #DEDEDE;
+    color: #757575;
 }
 .aclass{
     font-size: 80%;
@@ -15,7 +15,7 @@ a{
 }
 
 .classdiv{
-    height: 90%;
+    height: 95%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -50,7 +50,7 @@ ion-button{
 
  .wrap {
     display: flex;
-    height: 10%;
+    height: 5%;
     width: 100%;
     justify-items: end;
     text-align: right;
@@ -58,5 +58,5 @@ ion-button{
   
   .wrap a {
     align-self: flex-end;
-    margin-bottom: 1%;
+    margin-bottom: 4%;
   }
