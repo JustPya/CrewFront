@@ -9,6 +9,10 @@ import { MenuController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   
+
+  username: string;
+  password: string;
+
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
 
@@ -21,6 +25,13 @@ export class LoginPage implements OnInit {
      this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
  }
 
+ goTo() {
+
+  if (this.username == 'pya@gmail.com' && this.password == '123') {
+    this.router.navigateByUrl('tabs/wallet');
+  }
+
+ }
 
   hola(){
     setTimeout(() => {

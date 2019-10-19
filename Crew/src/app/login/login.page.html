@@ -1,5 +1,6 @@
 <ion-content class="center" color="primary">
   <div class="classdiv">
+
     <form>
       <ion-list class="backcolor">
         <ion-card>
@@ -10,15 +11,15 @@
           <ion-card-content class="colorcard">
             <ion-item>
               <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input type="text" required></ion-input>
+              <ion-input type="text" [(ngModel)]="username" name="user" required></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input [type]="passwordType" required></ion-input>
+              <ion-input [type]="passwordType" [(ngModel)]="password" name="pass" required></ion-input>
               <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
             </ion-item>
             <div class="ion-padding">
-                <ion-button expand="block"  class="ion-no-margin"><b>Sing In</b></ion-button>
+                <ion-button expand="block"  class="ion-no-margin" (click)="goTo()"><b>Sing In</b></ion-button>
             </div>
             <ion-item lines="none">
               <a class="aclass"slot="end" routerLink="settings">Forgot your password?</a>
