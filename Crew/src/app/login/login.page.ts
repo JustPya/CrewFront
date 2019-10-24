@@ -29,6 +29,7 @@ export class LoginPage implements OnInit {
 
   if (this.username == 'pya@gmail.com' && this.password == '123') {
     this.router.navigateByUrl('tabs/wallet');
+    this.menuCtrl.enable(true, 'first');
   }
 
  }
