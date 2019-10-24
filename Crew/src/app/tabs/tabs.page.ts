@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class TabsPage {
 
-  logueado: boolean = false;
   constructor(private menu: MenuController, private router: Router) {
+    menu.enable(true, 'first');
   }
 
   openMenu() {
