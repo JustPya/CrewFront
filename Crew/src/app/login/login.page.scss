@@ -1,62 +1,68 @@
-.backcolor{
-    background-color: #0CD1E8;
-}
-.colorcard{
-    background-color: white;
-}
-
-a{
-    font-size: 80%;
-    color: #757575;
-}
-.aclass{
-    font-size: 80%;
-    color: #0CD1E8; 
+ion-icon {
+  margin: auto;
+  display: block;
+  font-size: 1000%;
 }
 
-.classdiv{
-    height: 95%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
+ion-button {
+  --background-activated: #44dde9;
+}
+ion-content {
+  --ion-background-color: #0cd1e8;
+}
+ion-card {
+  --ion-background-color: #0cd1e8;
+  text-align: center;
+}
+ion-item {
+  --ion-background-color: #ffffff;
+  width: 100%;
+}
+.links {
+  font-size: 85%;
+  color: #0cd1e8;
+  width: 100%;
+}
+a {
+  margin: 0%;
+  width: 100%;
+  text-align: center;
+}
+form {
+  width: 100%;
+}
+.button {
+  align-self: center;
+  width: 80%;
+}
+.passwordIcon {
+  font-size: 2rem !important;
+  position: relative !important;
+  top: 30px !important;
+  margin: 0 auto !important;
+}
+.card {
+  background: #ffffff;
+  width: 80%;
+  border-radius: 10px;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.small-top {
+  margin-top: 8%;
 }
 
-form{
-    width: 100%;
+.logo {
+  margin-top:15%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 120px;
+  height: 120px;
 }
-
-ion-icon{
-    margin: auto;
-    display: block;
-    font-size: 1000%;    
-}
-
-ion-button{
-    --background-activated: #44DDE9;
-}
-
-.imgclass{
-    border-bottom: solid #DEDEDE 1px;
-}
-
-.passwordIcon{
-    font-size:2rem !important;
-    position: relative !important;
-    top: 22px !important;
-    margin: 0 auto !important;
- }
-
- .wrap {
-    display: flex;
-    height: 5%;
-    width: 100%;
-    justify-items: end;
-    text-align: right;
-  }
-  
-  .wrap a {
-    align-self: flex-end;
-    margin-bottom: 4%;
-  }

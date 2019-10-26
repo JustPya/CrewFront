@@ -1,12 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { AuthenticationService } from '../services/authentication.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-wallet',
   templateUrl: 'wallet.page.html',
   styleUrls: ['wallet.page.scss']
 })
-export class WalletPage {
+export class WalletPage implements OnInit {
 
-  constructor() {}
+  userEmail: string;
+
+  constructor(private authService: AuthenticationService,
+              private navCtrl: NavController) { }
+
+
+  ngOnInit() {
+    if (this.authService.userDetails()) {
+      this.userEmail = this.authService.userDetails().email;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+  }
+
+  logout() {
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res);
+      this.navCtrl.navigateBack('');
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
 
 }

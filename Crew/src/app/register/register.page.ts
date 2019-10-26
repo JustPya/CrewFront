@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -8,11 +11,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+  passwordType = 'password';
+  passwordIcon = 'eye-off';
+  registerForm: FormGroup;
 
-  constructor(private router: Router, public menuCtrl: MenuController) {
-    menuCtrl.enable(false, 'first');
+  errorMessage = '';
+  successMessage = '';
+
+  constructor(private router: Router,
+              private navCtrl: NavController,
+              private authService: AuthenticationService,
+              private formBuilder: FormBuilder) {
+
+    this.registerForm = this.formBuilder.group({
+      password: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      email: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      name: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      confirmPassword: new FormControl('', Validators.compose([
+        Validators.required
+      ]))
+    });
    }
 
  hideShowPassword() {
@@ -21,6 +45,24 @@ export class RegisterPage implements OnInit {
  }
 
   ngOnInit() {
+  }
+
+
+  register(value) {
+    this.authService.registerUser(value)
+     .then(res => {
+       console.log(res);
+       this.errorMessage = '';
+       this.successMessage = 'Your account has been created. Please log in.';
+     }, err => {
+       console.log(err);
+       this.errorMessage = err.message;
+       this.successMessage = '';
+     });
+  }
+
+  goLoginPage() {
+    this.navCtrl.navigateBack('');
   }
 
 }

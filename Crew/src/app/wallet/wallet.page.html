@@ -7,7 +7,7 @@
     </ion-card>
     <ion-card class="card">
         <ion-card-title>Estructura de Gastos</ion-card-title>
-        <label class="titles" for="cash">Toal COP 3.000</label>
+        <label class="titles" for="cash">{{userEmail}}</label>
     </ion-card>
     <ion-card class="card">
         <ion-card-title>Debito</ion-card-title>
@@ -29,3 +29,8 @@
     </ion-fab>
 
 </ion-content>
+<ion-footer (click)="logout()">
+    <ion-toolbar color="secondary">
+        <ion-title>Log out</ion-title>
+    </ion-toolbar>
+</ion-footer>

@@ -1,35 +1,39 @@
-<ion-content class="center" color="primary">
-  <div class="classdiv">
+<ion-content>
 
-    <form>
-      <ion-list class="backcolor">
-        <ion-card>
-          <img src="assets/login.jpg" />
-          <ion-card-header color="light">
-            <ion-card-title><b>LOGIN</b></ion-card-title>
-          </ion-card-header>  
-          <ion-card-content class="colorcard">
-            <ion-item>
-              <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input type="text" [(ngModel)]="username" name="user" required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input [type]="passwordType" [(ngModel)]="password" name="pass" required></ion-input>
-              <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
-            </ion-item>
-            <div class="ion-padding">
-                <ion-button expand="block"  class="ion-no-margin" (click)="goTo()"><b>Sing In</b></ion-button>
-            </div>
-            <ion-item lines="none">
-              <a class="aclass"slot="end" routerLink="settings">Forgot your password?</a>
-            </ion-item> 
-          </ion-card-content>
-        </ion-card>
-      </ion-list> 
-    </form>
-  </div>
-  <ion-item class="wrap" lines="none" color="primary">
-    <a slot="end" routerLink="register">Don't have an account?</a>
-  </ion-item>
+  <!-- <img class="logo" src="assets/logo.png"><img> -->
+  <ion-card class="card center">
+    <ion-card-header>
+      <ion-card-title><b>CREW</b></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="loginForm">
+        <ion-item>
+          <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input formControlName="email" required formControlName="email" placeholder="Email" type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input formControlName="password" required formControlName="password" placeholder="Password"
+            [type]="passwordType"></ion-input>
+          <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <ion-button block (click)="loginEmail(loginForm.value)" class="button small-top" type="submit" shape="round"
+          [disabled]="loginForm.invalid">
+          Login with Email
+        </ion-button>
+        <ion-button block (click)="loginGoogle()" class="button" type="submit" shape="round">
+          Login with Google
+        </ion-button>
+      </form>
+      <ion-item lines="none" class="itemlinks">
+        <a class="links" slot="end" routerLink="settings">Forgot your password?</a>
+      </ion-item>
+      <ion-item lines="none" class="itemlinks">
+        <a class="links" slot="end" routerLink="register">Don't have an account?</a>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

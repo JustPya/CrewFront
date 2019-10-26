@@ -1,42 +1,48 @@
-<ion-content class="center" color="primary">
-    <div class="classdiv">
-      <form>
-        <ion-list class="backcolor">
-          <ion-card>
-            <img src="assets/register.jpg" />
-            <ion-card-header color="light">
-              <ion-card-title><b>REGISTER</b></ion-card-title>
-              <ion-card-subtitle>Join to Crew, it's free and only takes a minute</ion-card-subtitle>
-            </ion-card-header>  
-            <ion-card-content class="colorcard">
-              <ion-item>
-                <ion-label position="stacked">Name<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="text" required></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="text" required></ion-input>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input [type]="passwordType" required></ion-input>
-                <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Confirm Password<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input [type]="passwordType" required></ion-input>
-              </ion-item>
-              <div class="ion-padding">
-                  <ion-button expand="block"  class="ion-no-margin"><b>Sing Up</b></ion-button>
-              </div>
-              <ion-item lines="none">
-                <ion-label class="termsclass">I agree all statements in Terms of service</ion-label>
-                <ion-checkbox color="primary" slot="end" value="terms"></ion-checkbox>              
-              </ion-item> 
-            </ion-card-content>
-          </ion-card>
-        </ion-list> 
+<ion-content>
+  <ion-card class="card center">
+    <ion-card-header>
+      <ion-card-title><b>REGISTER</b></ion-card-title>
+      <ion-card-subtitle>Join Crew, it's free and only takes a minute</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="registerForm" >
+        <ion-item>
+          <ion-label position="floating">Name <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required formControlName="name" placeholder="Name" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required formControlName="email" placeholder="Email" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required formControlName="password" placeholder="Password" [type]="passwordType"></ion-input>
+          <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Confirm Password <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required formControlName="confirmPassword" placeholder="Confirm password" [type]="passwordType"></ion-input>
+          <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <ion-button block (click)="register(registerForm.value)" class="button small-top" type="submit" shape="round"
+          [disabled]="registerForm.invalid">
+          Register
+        </ion-button>
+        <ion-button block  (click)="loginGoogle()" class="button" type="submit" shape="round">
+          Register with Google
+        </ion-button>
       </form>
-    </div>
-  </ion-content>
+      <ion-item lines="none" class="itemlinks">
+        <a class="links" slot="end" routerLink="">Login</a>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="termsclass">I agree all statements in Terms of service</ion-label>
+        <ion-checkbox slot="end" value="terms"></ion-checkbox>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
