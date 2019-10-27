@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-toolbar color='primary '>
+  <ion-toolbar color='primary'>
     <ion-buttons slot="start">
       <ion-button expand="block" (click)="openMenu()">
         <ion-icon slot="icon-only" name="menu"></ion-icon>
@@ -9,6 +9,12 @@
 </ion-header>  
 
 <ion-content>
+  <div class='avatar'>
+    <ion-avatar>
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>
+    <ion-label class = "label">Fernanda Moreno</ion-label>
+  </div>
   <ion-list>
     <ion-list-header>
       Perfil
@@ -16,7 +22,7 @@
     <ion-item lines='none'>
       <ion-label>
         Nombre
-        <p>Pya</p>
+        <p>Cambiar nombre</p>
       </ion-label>
     </ion-item>
     <ion-item lines='none'>
@@ -25,6 +31,8 @@
         <p>Cambiar contraseña</p>
       </ion-label>
     </ion-item>
+  </ion-list>
+  <ion-list>
     <ion-list-header>
         Telefono
     </ion-list-header>
