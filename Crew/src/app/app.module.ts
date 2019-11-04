@@ -17,8 +17,13 @@ import { AngularFireModule } from '@angular/fire';
 import { AuthenticationService } from './services/authentication.service';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from '../environments/environment';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import * as firebase from 'firebase';
+import { UserService } from './services/user.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -34,6 +39,11 @@ firebase.initializeApp(environment.firebase);
     MenuController,
     GooglePlus,
     AuthenticationService,
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
+    UserService,
+    AngularFirestore,
+    BrowserAnimationsModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

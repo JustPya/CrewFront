@@ -5,36 +5,64 @@
       <ion-card-subtitle>Join Crew, it's free and only takes a minute</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="registerForm" >
+      <form [formGroup]="registerForm" (ngSubmit)="createRecord()">
         <ion-item>
           <ion-label position="floating">Name <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input required formControlName="name" placeholder="Name" type="text"></ion-input>
+          <ion-input required [(ngModel)]="name" formControlName="name" placeholder="Name" type="text"></ion-input>
         </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of errorMessage.name">
+            <div class="error-message" *ngIf="registerForm.get('name').hasError(validation.type) && (registerForm.get('name').dirty || registerForm.get('name').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
         <ion-item>
           <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input required formControlName="email" placeholder="Email" type="text"></ion-input>
+          <ion-input required [(ngModel)]="email" formControlName="email" placeholder="Email" type="text"></ion-input>
         </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of errorMessage.email">
+            <div class="error-message" *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
         <ion-item>
           <ion-label position="floating">Password <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input required formControlName="password" placeholder="Password" [type]="passwordType"></ion-input>
+          <ion-input required  formControlName="password" placeholder="Password" [type]="passwordType"></ion-input>
           <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
-        <ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of errorMessage.password">
+            <div class="error-message" *ngIf="registerForm.get('password').hasError(validation.type) && (registerForm.get('password').dirty || registerForm.get('password').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        <!-- <ion-item>
           <ion-label position="floating">Confirm Password <ion-text color="danger">*</ion-text>
           </ion-label>
           <ion-input required formControlName="confirmPassword" placeholder="Confirm password" [type]="passwordType"></ion-input>
           <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of errorMessage.confirmPassword">
+            <div class="error-message" *ngIf="registerForm.get('confirmPassword').hasError(validation.type) && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div> -->
         <ion-button block (click)="register(registerForm.value)" class="button small-top" type="submit" shape="round"
           [disabled]="registerForm.invalid">
           Register
         </ion-button>
-        <ion-button block  (click)="loginGoogle()" class="button" type="submit" shape="round">
+        <!-- <ion-button block  (click)="loginGoogle()" class="button" type="submit" shape="round">
           Register with Google
-        </ion-button>
+        </ion-button> -->
       </form>
       <ion-item lines="none" class="itemlinks">
         <a class="links" slot="end" routerLink="">Login</a>

@@ -1,21 +1,21 @@
-interface User {
+import { Group } from './Group';
+
+export interface User {
     Email: string;
     Friends: Friend[];
-    Grupos: Grupo[];
+    Groups: Group[];
     Name: string;
     PersonalExpenses: PersonalExpense[];
-    'Teléfono': number;
+    Phone: number;
     UID: string;
   }
 
-interface PersonalExpense {
+export interface PersonalExpense {
     Object: string;
-    Tipo: string;
-    Valor: number | string;
+    Type: string;
+    Amount: number;
   }
-
-
-interface Friend {
+export interface Friend {
     Name: string;
     UID: string;
   }

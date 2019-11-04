@@ -55,11 +55,8 @@ export class LoginPage implements OnInit {
     });
   }
 
-
-  async presentLoading(loading) {
-    await loading.present();
-  }
   async loginGoogle() {
+    this.showLoader();
     let params;
     if (this.platform.is('cordova')) {
       params = {
@@ -73,6 +70,7 @@ export class LoginPage implements OnInit {
       .then((response) => {
         const { idToken, accessToken } = response;
         this.onLoginSuccess(idToken, accessToken);
+        this.hideLoader();
       }).catch((error) => {
         console.log(error);
         alert('error:' + JSON.stringify(error));
@@ -94,10 +92,12 @@ export class LoginPage implements OnInit {
   }
 
   loginEmail(value) {
+    this.loading.showLoader();
     this.authService.loginEmail(value)
       .then(res => {
         console.log(res);
         this.errorMessage = '';
+        this.loading.hideLoader();
         this.navCtrl.navigateForward('/wallet');
       }, err => {
         this.errorMessage = err.message;
@@ -109,9 +109,19 @@ export class LoginPage implements OnInit {
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
   }
 
-  hola() {
+  showLoader() {
+    this.loading = this.loadingController.create({
+      message: 'Wait a second...'
+    }).then((res) => {
+      res.present();
+      res.onDidDismiss().then((dis) => {
+        console.log('Loading dismissed!');
+      });
+    });
+  }
+  hideLoader() {
     setTimeout(() => {
-      this.router.navigateByUrl('tabs');
+      this.loadingController.dismiss();
     }, 1000);
   }
 }

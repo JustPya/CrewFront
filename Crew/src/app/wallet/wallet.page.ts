@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthenticationService } from '../services/authentication.service';
-import { NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-wallet',
@@ -13,7 +13,8 @@ export class WalletPage implements OnInit {
   userEmail: string;
 
   constructor(private authService: AuthenticationService,
-              private navCtrl: NavController) { }
+              private navCtrl: NavController,
+              private menu: MenuController) { }
 
 
   ngOnInit() {
@@ -22,6 +23,9 @@ export class WalletPage implements OnInit {
     } else {
       this.navCtrl.navigateBack('');
     }
+  }
+  openMenu() {
+    this.menu.open('first');
   }
 
   logout() {
