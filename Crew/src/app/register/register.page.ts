@@ -100,6 +100,7 @@ export class RegisterPage implements OnInit {
     this.showLoader();
     this.authService.registerUser(value)
       .then(res => {
+        console.log('Esteee es el res:');
         console.log(res);
         this.createRecord();
         this.errorMessage = '';
@@ -110,6 +111,10 @@ export class RegisterPage implements OnInit {
         this.errorMessage = err.message;
         this.successMessage = '';
       });
+  }
+
+  checkExist() {
+    this.firebase.checkExist(this.email);
   }
 
   // Registrar con google en Firebase

@@ -24,4 +24,10 @@ export class UserService {
   deleteUser(record) {
     this.firestore.doc('Users/' + record).delete();
   }
+
+  checkExist(userId: string) { 
+    const reference = this.firestore.collection('Users', ref => ref.where('UID', '==', userId));
+    console.log('Esta es la referenciaaaa');
+    console.log(reference);
+  }
 }
