@@ -8,7 +8,9 @@ const routes: Routes = [
   { path: 'friends', loadChildren: './friends/friends.module#FriendsPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'wallet', loadChildren: './wallet/wallet.module#WalletPageModule' }
+  { path: 'wallet', loadChildren: './wallet/wallet.module#WalletPageModule' },  { path: 'create-group', loadChildren: './create-group/create-group.module#CreateGroupPageModule' },
+  { path: 'create-expense', loadChildren: './create-expense/create-expense.module#CreateExpensePageModule' }
+
 ];
 
 @NgModule({

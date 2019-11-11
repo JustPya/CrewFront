@@ -92,15 +92,16 @@ export class LoginPage implements OnInit {
   }
 
   loginEmail(value) {
-    this.loading.showLoader();
+    this.showLoader();
     this.authService.loginEmail(value)
       .then(res => {
         console.log(res);
         this.errorMessage = '';
-        this.loading.hideLoader();
+        this.hideLoader();
         this.navCtrl.navigateForward('/wallet');
       }, err => {
         this.errorMessage = err.message;
+        this.hideLoader();
       });
   }
 
