@@ -19,8 +19,11 @@
               <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
             </ion-item>
             <div class="ion-padding">
-                <ion-button expand="block"  class="ion-no-margin" (click)="goTo()"><b>Sing In</b></ion-button>
+                <ion-button expand="block"  class="ion-no-margin" (click)="loginWithEmail()"><b>Sing In</b></ion-button>
             </div>
+            <div class="ion-padding">
+              <ion-button expand="block"  class="ion-no-margin" (click)="loginWithGoogle()"><b>Sing In with GOOGLE</b></ion-button>
+          </div>
             <ion-item lines="none">
               <a class="aclass"slot="end" routerLink="settings">Forgot your password?</a>
             </ion-item> 

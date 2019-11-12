@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
     this.passwordIcon = this.passwordIcon === "eye-off" ? "eye" : "eye-off";
   }
 
-  goTo() {
+  loginWithEmail() {
     console.log(this.username, this.password);
     this.authService
       .login(this.username, this.password)
@@ -43,6 +43,8 @@ export class LoginPage implements OnInit {
         console.log(err);
       });
   }
+
+  loginWithGoogle() {}
 
   hola() {
     setTimeout(() => {
