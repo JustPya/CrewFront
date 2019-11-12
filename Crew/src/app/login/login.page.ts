@@ -1,46 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { MenuController } from "@ionic/angular";
+
+import { AuthService } from "../services/auth.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: "app-login",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  
-
   username: string;
   password: string;
 
-  passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+  passwordType: string = "password";
+  passwordIcon: string = "eye-off";
 
-  constructor(private router: Router, public menuCtrl: MenuController) {
-    menuCtrl.enable(false, 'first');
-   }
-
- hideShowPassword() {
-     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
-     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
- }
-
- goTo() {
-
-  if (this.username == 'pya@gmail.com' && this.password == '123') {
-    this.router.navigateByUrl('tabs/wallet');
-    this.menuCtrl.enable(true, 'first');
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public menuCtrl: MenuController
+  ) {
+    menuCtrl.enable(false, "first");
   }
 
- }
+  hideShowPassword() {
+    this.passwordType = this.passwordType === "text" ? "password" : "text";
+    this.passwordIcon = this.passwordIcon === "eye-off" ? "eye" : "eye-off";
+  }
 
-  hola(){
+  loginWithEmail() {
+    console.log(this.username, this.password);
+    this.authService
+      .login(this.username, this.password)
+      .then(res => {
+        this.router.navigateByUrl("/tabs");
+        this.menuCtrl.enable(true, "first");
+        console.log(res);
+      })
+      .catch(err => {
+        console.log("Error");
+        console.log(err);
+      });
+  }
+
+  loginWithGoogle() {}
+
+  hola() {
     setTimeout(() => {
-      this.router.navigateByUrl('tabs');
+      this.router.navigateByUrl("tabs");
     }, 1000);
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
