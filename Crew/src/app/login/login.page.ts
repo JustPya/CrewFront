@@ -74,12 +74,11 @@ export class LoginPage implements OnInit {
       this.webGoogleLogin().then(res => {
         this.router.navigateByUrl("/tabs");
         this.menuCtrl.enable(true, "first");
-        console.log(res);
       });;
     }
   }
 
-  async nativeGoogleLogin() {
+  async nativeGoogleLogin() : Promise<void>{
     try {
       const gplusUser = await this.gplus.login({
         webClientId:
@@ -88,7 +87,7 @@ export class LoginPage implements OnInit {
         scopes: "profile email"
       });
 
-      return await this.authService
+      await this.authService
         .getAFauth()
         .auth.signInWithCredential(
           firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
