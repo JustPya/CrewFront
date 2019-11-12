@@ -9,9 +9,12 @@ export class UserService {
   constructor(private firestore: AngularFirestore) { }
 
 
-  // CRUD Section for User
-  createUser(record) {
-    return this.firestore.collection('Users').add(record);
+  /** CRUD for User section
+   * recordId: User Id being modified
+   * record: User data that will reeplaze recordId document
+   */
+  createUser(recordId) {
+    return this.firestore.collection('Users').add(recordId);
   }
   readUser() {
     return this.firestore.collection('Users').snapshotChanges();
@@ -19,35 +22,43 @@ export class UserService {
   updateUser(recordID, record) {
     this.firestore.doc('Users/' + recordID).update(record);
   }
-  deleteUser(record) {
-    this.firestore.doc('Users/' + record).delete();
+  deleteUser(recordId) {
+    this.firestore.doc('Users/' + recordId).delete();
   }
 
-  // CRUD Section for Friend
-  createFriend(record, recordId) {
+  /** CRUD for Friend section
+   * userId: User Id being modified
+   * recordId: Friend Id being modified
+   * record: Friend data that will reeplaze recordId document
+   */
+  createFriend(recordId, record) {
     return this.firestore.collection('Users/' + recordId + '/Friends').add(record);
   }
   readFriend(userId, recordId) {
     return this.firestore.doc('Users/' + userId + '/Friends/' + recordId).snapshotChanges();
   }
-  updateFriend(userId, record, recordId) {
+  updateFriend(userId, recordId, record) {
     this.firestore.doc('Users/' + userId + '/Friends' + recordId).update(record);
   }
-  deleteFriend(userId, record) {
-    this.firestore.doc('Users/' + userId + '/Friends' + record.delete());
+  deleteFriend(userId, recordId) {
+    this.firestore.doc('Users/' + userId + '/Friends' + recordId.delete());
   }
 
-  // CRUD Section for Personal Expense
+  /** CRUD for Personal Expense section
+   * userId: User Id being modified
+   * recordId: Expense Id being modified
+   * record: Expense data that will reeplaze recordId document
+   */
   createExpense(record, recordId) {
     return this.firestore.collection('Users/' + recordId + '/Expenses').add(record);
   }
   readExpense(userId, recordId) {
     return this.firestore.collection('Users/' + userId + '/Expenses/' + recordId).snapshotChanges();
   }
-  updateExpense(userId, record, recordId) {
+  updateExpense(userId, recordId, record) {
     this.firestore.doc('Users/' + userId + '/Expenses' + recordId).update(record);
   }
-  deleteExpense(userId, record) {
-    this.firestore.doc('Users/' + userId + '/Expenses' + record.delete());
+  deleteExpense(userId, recordId) {
+    this.firestore.doc('Users/' + userId + '/Expenses' + recordId.delete());
   }
 }
