@@ -6,7 +6,6 @@ import * as firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -18,12 +17,9 @@ export class LoginPage implements OnInit {
 
   email: string;
   password: string;
-
   passwordType = 'password';
   passwordIcon = 'eye-off';
-
   loading: any;
-
   loginForm: FormGroup;
   errorMessage = '';
 
@@ -76,6 +72,7 @@ export class LoginPage implements OnInit {
         alert('error:' + JSON.stringify(error));
       });
   }
+
   onLoginSuccess(accessToken, accessSecret) {
     const credential = accessSecret ? firebase.auth.GoogleAuthProvider
       .credential(accessToken, accessSecret) : firebase.auth.GoogleAuthProvider
@@ -85,7 +82,6 @@ export class LoginPage implements OnInit {
         this.router.navigate(['/wallet']);
         this.loading.dismiss();
       });
-
   }
   onLoginError(err) {
     console.log(err);
@@ -120,6 +116,7 @@ export class LoginPage implements OnInit {
       });
     });
   }
+
   hideLoader() {
     setTimeout(() => {
       this.loadingController.dismiss();

@@ -2,6 +2,7 @@ export interface Group {
     Expenses: Expense[];
     Name: string;
     Participants: Participant[];
+    Description: string;
     Total: number;
   }
 export interface Participant {

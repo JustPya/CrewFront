@@ -12,7 +12,6 @@ export class UserService {
   createUser(record) {
     return this.firestore.collection('Users').add(record);
   }
-
   readUser() {
     return this.firestore.collection('Users').snapshotChanges();
   }
