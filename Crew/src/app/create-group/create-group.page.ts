@@ -8,7 +8,9 @@ import { MenuController, ToastController } from '@ionic/angular';
 })
 export class CreateGroupPage implements OnInit {
 
-  //Parameters
+  /*
+  Parameters
+  */
   private countDescription=0;
   private countName=0;
 
@@ -16,13 +18,16 @@ export class CreateGroupPage implements OnInit {
 
   ngOnInit() {
   }
-
-  //Method to open menu
+  /*
+  Method to open menu
+  */
   openMenu() {
     console.log("do some");
     this.menu.open("first");
   }
-  //Method to increase the description counter and activate the toast.
+  /*
+  Method to increase the description counter and activate the toast.
+  */
   async descriptionToast(event) {
     this.countDescription = event.target.value.length;
     if(this.countDescription === 215){
@@ -33,8 +38,9 @@ export class CreateGroupPage implements OnInit {
       toast.present();
     }
   }
-
-  //Method to increase the name counter and activate the toast.
+  /*
+  Method to increase the name counter and activate the toast.
+  */
   async nameToast(event) {
     this.countName = event.target.value.length;
     if(this.countName === 30){
