@@ -17,7 +17,6 @@ import { isNullOrUndefined } from "util";
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  controller = document.querySelector("ion-toast-controller");
   username: string;
   password: string;
 
