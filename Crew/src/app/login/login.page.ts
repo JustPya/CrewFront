@@ -2,8 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuController, Platform } from "@ionic/angular";
 import { ToastController } from "@ionic/angular";
-
 import * as firebase from "firebase/app";
+
+
 
 import { AuthService } from "../services/auth.service";
 
@@ -64,21 +65,13 @@ export class LoginPage implements OnInit {
    * Sign in with Google
    */
   loginWithGoogle() {
-    if (this.platform.is("cordova")) {
-      this.nativeGoogleLogin().then(res => {
-        this.router.navigateByUrl("/tabs");
-        this.menuCtrl.enable(true, "first");
-        console.log(res);
-      });
-    } else {
       this.webGoogleLogin().then(res => {
         this.router.navigateByUrl("/tabs");
         this.menuCtrl.enable(true, "first");
-      });;
-    }
+      });
   }
 
-  async nativeGoogleLogin() : Promise<void>{
+  async nativeGoogleLogin():Promise<void> {
     try {
       const gplusUser = await this.gplus.login({
         webClientId:
@@ -86,12 +79,8 @@ export class LoginPage implements OnInit {
         offline: true,
         scopes: "profile email"
       });
-
-      await this.authService
-        .getAFauth()
-        .auth.signInWithCredential(
-          firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
-        );
+      
+      return await this.authService.loginWithCredentials(gplusUser.idToken);
     } catch (err) {
       console.log(err);
     }
