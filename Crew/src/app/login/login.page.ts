@@ -44,20 +44,6 @@ export class LoginPage implements OnInit {
    */
   loginWithEmail() {
     console.log(this.username, this.password);
-<<<<<<< HEAD
-    this.authService
-      .login(this.username, this.password)
-      .then(res => {
-        this.router.navigateByUrl('/tabs');
-        this.menuCtrl.enable(true, 'first');
-        console.log(res);
-      })
-      .catch(err => {
-        console.log('Error');
-        console.log(err);
-      });
-  }
-=======
     if (isNullOrUndefined(this.username) || isNullOrUndefined(this.password)) {
       this.presentToast("Hay campos vaccios");
     } else {
@@ -118,6 +104,5 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
->>>>>>> c4a167b836b69bfb664445b2a186f691965d6ccc
   ngOnInit() {}
 }
