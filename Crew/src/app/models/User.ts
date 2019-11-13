@@ -1,5 +1,5 @@
 import { Group } from './Group';
-export interface User {
+export class User {
     Email: string;
     Friends: Friend[];
     Groups: Group[];
@@ -7,6 +7,11 @@ export interface User {
     PersonalExpenses: PersonalExpense[];
     Phone: number;
     UID: string;
+
+    constructor( email: string, name: string) {
+      this.Email = email;
+      this.Name = name;
+    }
   }
 
 export interface PersonalExpense {
