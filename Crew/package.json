@@ -84,12 +84,11 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.801441567235-cbj44s32egviqcp515fp258g6luo1jdp",
-        "WEB_APPLICATION_CLIENT_ID": "801441567235-llsbqsmnkri0hklb6587v0oqpqcagr6v.apps.googleusercontent.com"
-      }
+      "cordova-plugin-googleplus": {}
     },
     "platforms": [
       "ios",
