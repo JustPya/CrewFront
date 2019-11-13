@@ -6,22 +6,22 @@ import * as firebase from "firebase/app";
 
 
 
-import { AuthService } from '../services/auth.service';
+import { AuthService } from "../services/auth.service";
 
 import { GooglePlus } from "@ionic-native/google-plus/ngx";
 import { isNullOrUndefined } from "util";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss']
+  selector: "app-login",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
   username: string;
   password: string;
 
-  passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+  passwordType: string = "password";
+  passwordIcon: string = "eye-off";
 
   constructor(
     private authService: AuthService,
@@ -31,12 +31,12 @@ export class LoginPage implements OnInit {
     private gplus: GooglePlus,
     private platform: Platform
   ) {
-    menuCtrl.enable(false, 'first');
+    menuCtrl.enable(false, "first");
   }
 
   hideShowPassword() {
-    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
-    this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+    this.passwordType = this.passwordType === "text" ? "password" : "text";
+    this.passwordIcon = this.passwordIcon === "eye-off" ? "eye" : "eye-off";
   }
 
   /*
