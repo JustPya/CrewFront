@@ -9,7 +9,9 @@ const routes: Routes = [
   { path: 'contact-us', loadChildren: './contact-us/contact-us.module#ContactUsPageModule', canActivate: [AuthGuard] },
   { path: 'friends', loadChildren: './friends/friends.module#FriendsPageModule', canActivate: [AuthGuard] },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [NoAuthGuard]}
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [NoAuthGuard]},
+  { path: 'group-items', loadChildren: './group-items/group-items.module#GroupItemsPageModule' }
+
 
 ];
 

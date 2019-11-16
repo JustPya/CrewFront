@@ -1,0 +1,59 @@
+<ion-header no-border>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot='start'>
+      <ion-button expand='block' (click)='openMenu()'>
+        <ion-icon slot='icon-only' name='menu'></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <b>Party</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>  
+
+<ion-content>
+  <ion-item class='groupDescription'>
+    <ion-label class="ion-text-wrap">
+      {{description}}
+    </ion-label>
+  </ion-item>
+
+  <ion-item lines='none' class='idItem'>
+    <ion-label color='secondary'>Members</ion-label>
+    <ion-badge slot='end' color='secondary'>{{numMembers}}</ion-badge>
+    <ion-icon slot='end' name='add-circle' color='primary' (click)='showDialogGroup()'></ion-icon>
+  </ion-item>
+
+  <p-table class='idTable' [value]="expenses">
+    <ng-template pTemplate="body" let-exp>
+        <tr>
+          <td>
+            <b>{{exp.Name}}</b>
+          </td>
+          <td>
+             {{exp.Amount | currency: "USD":"symbol":"1.0-0"}}
+          </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+  <ion-item lines='none' class='idItemTotal' vertical='bottom'>
+    <ion-label slot='start'color='secondary'>Total</ion-label>
+    <ion-label class='idTotal' slot='end' color='secondary'>{{total | currency: "USD":"symbol":"1.0-0"}}</ion-label>
+  </ion-item>
+
+
+  <p-dialog header="Title" [(visible)]="displayGroup">
+      Content
+  </p-dialog>
+
+  <p-dialog header="Expenses" [(visible)]="displayExpense">
+      Content2
+  </p-dialog>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)='showDialogExpenses()'>
+          <ion-icon name="create"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+</ion-content>
