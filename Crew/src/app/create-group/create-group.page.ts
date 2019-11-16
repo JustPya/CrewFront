@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-group',
@@ -14,7 +15,7 @@ export class CreateGroupPage implements OnInit {
   private countDescription=0;
   private countName=0;
 
-  constructor(private menu: MenuController, public toastController: ToastController) { }
+  constructor(private menu: MenuController, public toastController: ToastController, private router: Router) { }
 
   ngOnInit() {
   }
@@ -24,6 +25,13 @@ export class CreateGroupPage implements OnInit {
   openMenu() {
     console.log("do some");
     this.menu.open("first");
+  }
+  /*
+  Method to return to groups
+  */
+
+  navigateToGroups(){
+    this.router.navigateByUrl('tabs/groups');
   }
   /*
   Method to increase the description counter and activate the toast.
