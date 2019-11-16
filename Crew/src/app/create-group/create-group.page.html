@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-button expand="block" (click)="openMenu()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-text id="header">Create Group</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page">
+  <form>
+    <ion-list class="list">
+      <div class="form">
+        <ion-item class="items">
+          <ion-label position="stacked">Name<ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input maxlength=30 required=true type="text" (keydown)="nameToast($event)"></ion-input>
+        </ion-item>
+        <ion-item class="items">
+          <ion-label position="stacked">Description <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-textarea rows="6" cols="20" required=true (keyup)="descriptionToast($event)" maxlength=215></ion-textarea>
+        </ion-item>
+        <ion-text color="medium" id="count">{{countDescription}}/215</ion-text>
+      </div>
+      <div class=out>
+        <ion-button id="button" (click)='navigateToGroups()'>Done</ion-button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

@@ -14,13 +14,13 @@ export class UserService {
    * record: User data that will reeplaze recordId document
    */
   createUser(recordId) {
-    return this.firestore.collection('Users').add(recordId);
+    return this.firestore.collection('Users').add(JSON.parse(JSON.stringify(recordId)));
   }
   readUser() {
     return this.firestore.collection('Users').snapshotChanges();
   }
   updateUser(recordID, record) {
-    this.firestore.doc('Users/' + recordID).update(record);
+    this.firestore.doc('Users/' + recordID).update(JSON.parse(JSON.stringify(record)));
   }
   deleteUser(recordId) {
     this.firestore.doc('Users/' + recordId).delete();
@@ -32,13 +32,13 @@ export class UserService {
    * record: Friend data that will reeplaze recordId document
    */
   createFriend(recordId, record) {
-    return this.firestore.collection('Users/' + recordId + '/Friends').add(record);
+    return this.firestore.collection('Users/' + recordId + '/Friends').add(JSON.parse(JSON.stringify(record)));
   }
   readFriend(userId, recordId) {
     return this.firestore.doc('Users/' + userId + '/Friends/' + recordId).snapshotChanges();
   }
   updateFriend(userId, recordId, record) {
-    this.firestore.doc('Users/' + userId + '/Friends' + recordId).update(record);
+    this.firestore.doc('Users/' + userId + '/Friends' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
   deleteFriend(userId, recordId) {
     this.firestore.doc('Users/' + userId + '/Friends' + recordId.delete());
@@ -50,13 +50,13 @@ export class UserService {
    * record: Expense data that will reeplaze recordId document
    */
   createExpense(record, recordId) {
-    return this.firestore.collection('Users/' + recordId + '/Expenses').add(record);
+    return this.firestore.collection('Users/' + recordId + '/Expenses').add(JSON.parse(JSON.stringify(record)));
   }
   readExpense(userId, recordId) {
     return this.firestore.collection('Users/' + userId + '/Expenses/' + recordId).snapshotChanges();
   }
   updateExpense(userId, recordId, record) {
-    this.firestore.doc('Users/' + userId + '/Expenses' + recordId).update(record);
+    this.firestore.doc('Users/' + userId + '/Expenses' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
   deleteExpense(userId, recordId) {
     this.firestore.doc('Users/' + userId + '/Expenses' + recordId.delete());

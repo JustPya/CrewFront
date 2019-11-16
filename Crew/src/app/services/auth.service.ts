@@ -53,6 +53,19 @@ export class AuthService {
     });
   }
 
+  /**
+   * This register in Firebase Autentication an user by email
+   * @param email email from register page
+   * @param password password from register page
+   */
+  registerUser(email: string, password: string) {
+    return new Promise<any>((resolve, reject) => {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(
+        res => resolve(res),
+        err => reject(err));
+    });
+   }
   getAFauth(): AngularFireAuth {
     return this.AFauth;
   }
