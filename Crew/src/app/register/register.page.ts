@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -20,12 +19,14 @@ export class RegisterPage implements OnInit {
   users: any;
   email: string;
   name: string;
+  password: string;
   loader: any;
   user: User;
 
   constructor(private router: Router,
+              private authService: AuthService,
               private navCtrl: NavController,
-              private firebase: UserService,
+              private userService: UserService,
               private loadingController: LoadingController) {
   }
 
@@ -37,15 +38,30 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-
   /**
-   * Crear usuario en base de datos Firebase
+   * This method register an authenticate user in Firebase authentication
+   */
+  registerUser() {
+    this.showLoader();
+    this.authService.registerUser(this.email, this.password).then(resp => {
+      this.createRecord();
+      this.hideLoader();
+      console.log(resp);
+    })
+      .catch(error => {
+        console.log(error);
+        this.hideLoader();
+      });
+  }
+  /**
+   * Creat user in Firestore database, and then goes to login
    */
   createRecord() {
     this.user = new User(this.email, this.name);
-    this.firebase.createUser(this.user).then(resp => {
+    this.userService.createUser(this.user).then(resp => {
       this.hideLoader();
       console.log(resp);
+      this.navCtrl.navigateRoot('');
     })
       .catch(error => {
         console.log(error);
