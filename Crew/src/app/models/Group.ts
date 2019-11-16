@@ -1,9 +1,14 @@
-export interface Group {
+export class Group {
     Expenses: Expense[];
     Name: string;
     Participants: Participant[];
     Description: string;
     Total: number;
+
+    constructor(name: string, description: string) {
+      this.Name = name;
+      this.Description = description;
+    }
   }
 export interface Participant {
     Name: string;
