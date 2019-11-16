@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -6,12 +7,14 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/User';
 import { AuthService } from '../services/auth.service';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+
   passwordType = 'password';
   passwordIcon = 'eye-off';
   users: any;
@@ -33,6 +36,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
+
 
   /**
    * Crear usuario en base de datos Firebase

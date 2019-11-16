@@ -13,7 +13,7 @@ export class GroupService {
    * record: Group data that will reeplaze recordId document
    */
   createGroup(recordId) {
-    return this.firestore.collection('Group').add(recordId);
+    return this.firestore.collection('Group').add(JSON.parse(JSON.stringify(recordId)));
   }
 
   readGroup(recordId) {
@@ -21,7 +21,7 @@ export class GroupService {
   }
 
   updateGroup(recordID, record) {
-    this.firestore.doc('Group/' + recordID).update(record);
+    this.firestore.doc('Group/' + recordID).update(JSON.parse(JSON.stringify(record)));
   }
 
   deleteGroup(record) {
@@ -34,7 +34,7 @@ export class GroupService {
    * record: Participant data that will reeplaze recordId document
    */
   createParticipant(groupId, recordId) {
-    return this.firestore.collection('Group/' + groupId + '/Participants').add(recordId);
+    return this.firestore.collection('Group/' + groupId + '/Participants').add(JSON.parse(JSON.stringify(recordId)));
   }
 
   readParticipant(groupId, recordId) {
@@ -42,7 +42,7 @@ export class GroupService {
   }
 
   updateParticipant(groupId, recordId, record) {
-    return this.firestore.doc('Group/' + groupId + '/Participants/' + recordId).update(record);
+    return this.firestore.doc('Group/' + groupId + '/Participants/' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
 
   deleteParticipant(groupId, recordId) {
@@ -54,7 +54,7 @@ export class GroupService {
    * record: Expense data that will reeplaze recordId document
    */
   createExpense(groupId, recordId) {
-    return this.firestore.collection('Group/' + groupId + '/Expenses').add(recordId);
+    return this.firestore.collection('Group/' + groupId + '/Expenses').add(JSON.parse(JSON.stringify(recordId)));
   }
 
   readExpense(groupId, recordId) {
@@ -62,7 +62,7 @@ export class GroupService {
   }
 
   updateExpense(groupId, recordId, record) {
-    return this.firestore.doc('Group/' + groupId + '/Expenses/' + recordId).update(record);
+    return this.firestore.doc('Group/' + groupId + '/Expenses/' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
 
   deleteExpense(groupId, recordId) {
@@ -73,7 +73,7 @@ export class GroupService {
    * record: Debtor data that will reeplaze recordId document
    */
   createDebtor(groupId, expenseId, recordId) {
-    return this.firestore.collection('Group/' + groupId + '/Expenses/' + expenseId + '/Debtor/').add(recordId);
+    return this.firestore.collection('Group/' + groupId + '/Expenses/' + expenseId + '/Debtor/').add(JSON.parse(JSON.stringify(recordId)));
   }
 
   readDebtor(groupId, debtorId, recordId) {
@@ -81,7 +81,8 @@ export class GroupService {
   }
 
   updateDeptor(groupId, debtorId, recordId, record) {
-    return this.firestore.doc('Group/' + groupId + '/Expenses/' + debtorId + '/Debtor/' + recordId).update(record);
+    // tslint:disable-next-line: max-line-length
+    return this.firestore.doc('Group/' + groupId + '/Expenses/' + debtorId + '/Debtor/' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
 
   deleteDeptor(groupId, debtorId, recordId) {
