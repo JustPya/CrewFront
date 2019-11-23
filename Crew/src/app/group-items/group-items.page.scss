@@ -12,20 +12,22 @@
 }
 
 .idTotal{
+    padding-right: 3%;
     text-align: right;   
 }
 
 .idItemTotal{
     width: 100%;
+    padding: 3%;
     position: absolute;
     bottom: 2%;
 }
 
 ion-fab{
     vertical-align: bottom;
-    bottom: 9%;
+    bottom: 5%;
 }
 
-.idTable{
-    margin-top: 10%;
+.button{
+    text-align: right;
 }

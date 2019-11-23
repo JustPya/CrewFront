@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-groups',
@@ -7,6 +8,17 @@ import { Component } from '@angular/core';
 })
 export class GroupsPage {
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  /*
+  Method to navigate to create group
+  */
+  navigateToCreateGroup() {
+    this.router.navigateByUrl('createGroup');
+  }
+
+  navigateToGroup() {
+    this.router.navigateByUrl('group-items');
+  }
 
 }
