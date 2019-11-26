@@ -11,24 +11,24 @@
             <ion-card-content class="colorcard">
               <ion-item>
                 <ion-label position="stacked">Name<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="text" required></ion-input>
+                <ion-input type="text" [(ngModel)]="name" name="username" required></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="text" required></ion-input>
+                <ion-input type="text" [(ngModel)]="email" name="useremail" required></ion-input>
               </ion-item>
               
               <ion-item>
                 <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input [type]="passwordType" required></ion-input>
+                <ion-input [type]="passwordType" [(ngModel)]="password" name="userpassword" required></ion-input>
                 <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
               </ion-item>
-              <ion-item>
+              <!-- <ion-item>
                 <ion-label position="stacked">Confirm Password<ion-text color="danger">*</ion-text></ion-label>
                 <ion-input [type]="passwordType" required></ion-input>
-              </ion-item>
+              </ion-item> -->
               <div class="ion-padding">
-                  <ion-button expand="block"  class="ion-no-margin"><b>Sing Up</b></ion-button>
+                  <ion-button expand="block" (click)="registerUser()" class="ion-no-margin"><b>Sing Up</b></ion-button>
               </div>
               <ion-item lines="none">
                 <ion-label class="termsclass">I agree all statements in Terms of service</ion-label>
