@@ -7,14 +7,26 @@ import { MenuController, AlertController } from '@ionic/angular';
   styleUrls: ['./friends.page.scss'],
 })
 export class FriendsPage implements OnInit {
-
+  
   friendName: string;
+
+  /*
+    Example of friends
+  */
   friends = [] = [{imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Camila'},
+  {imag:'https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg', name: 'Julian'},
+  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Eduardo'},
+  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Camila'},
+  {imag:'https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg', name: 'Julian'},
+  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Eduardo'},
+  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Camila'},
   {imag:'https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg', name: 'Julian'},
   {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Eduardo'}
 ]
 
-  constructor(private menu: MenuController, public alertController: AlertController) { }
+
+
+constructor(private menu: MenuController, public alertController: AlertController) { }
   /*
   Method to open menu
   */
@@ -22,6 +34,12 @@ export class FriendsPage implements OnInit {
     console.log("do some");
     this.menu.open("first");
   }
+            ngOnInit() {
+              
+            }
+  /*
+    Method to open alert and add friends
+  */
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Add friend',
@@ -48,15 +66,27 @@ export class FriendsPage implements OnInit {
         }
       }]
     });
-
     await alert.present();
   }
   
+  /*
+    Method to delete friends
+  */
   deleteFriend(i){
     delete this.friends[i];
   }
-  ngOnInit() {
+
+  /*
+    Method of search
+  */
+  search(event) {
+    const query = event.target.value.toLowerCase();
+    /*
+      Insert search method
+    */
   }
+
+
 
 
 
