@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
   loginWithEmail() {
     console.log(this.username, this.password);
     if (isNullOrUndefined(this.username) || isNullOrUndefined(this.password)) {
-      this.presentToast("Hay campos vaccios");
+      this.presentToast("Hay campos vacios");
     } else {
       this.authService
         .login(this.username, this.password)

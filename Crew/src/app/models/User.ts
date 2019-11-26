@@ -1,25 +1,25 @@
 import { Group } from './Group';
 export class User {
-  Email: string;
-  Friends: Friend[];
-  Groups: Group[];
-  Name: string;
-  PersonalExpenses: PersonalExpense[];
-  Phone: number;
+  email: string;
+  friends: Friend[];
+  groups: Group[];
+  name: string;
+  personalExpenses: PersonalExpense[];
+  phone: number;
   UID: string;
 
   constructor(email: string, name: string) {
-    this.Email = email;
-    this.Name = name;
+    this.email = email;
+    this.name = name;
   }
 }
 
-export interface PersonalExpense {
-  Object: string;
-  Type: string;
-  Amount: number;
+export class PersonalExpense {
+  object: string;
+  type: string;
+  amount: number;
 }
-export interface Friend {
-  Name: string;
+export class Friend {
+  name: string;
   UID: string;
 }

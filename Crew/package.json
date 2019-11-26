@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^8.2.12",
+    "@angular/animations": "^8.2.14",
     "@angular/cdk": "^8.2.3",
     "@angular/common": "~8.1.2",
     "@angular/compiler": "~8.1.2",
@@ -41,6 +41,8 @@
     "cordova-plugin-whitelist": "1.3.3",
     "core-js": "^2.6.10",
     "firebase": "^7.3.0",
+    "primeicons": "^2.0.0",
+    "primeng": "^8.1.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -84,11 +86,12 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {
-        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      },
+      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-googleplus": {}
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.801441567235-cbj44s32egviqcp515fp258g6luo1jdp",
+        "WEB_APPLICATION_CLIENT_ID": "801441567235-llsbqsmnkri0hklb6587v0oqpqcagr6v.apps.googleusercontent.com"
+      }
     },
     "platforms": [
       "ios",
