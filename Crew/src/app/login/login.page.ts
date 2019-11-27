@@ -10,6 +10,7 @@ import { AuthService } from "../services/auth.service";
 
 import { GooglePlus } from "@ionic-native/google-plus/ngx";
 import { isNullOrUndefined } from "util";
+import { QuerysService } from '../services/querys.service';
 
 @Component({
   selector: "app-login",
@@ -29,7 +30,8 @@ export class LoginPage implements OnInit {
     public menuCtrl: MenuController,
     public toastController: ToastController,
     private gplus: GooglePlus,
-    private platform: Platform
+    private platform: Platform,
+    private queryService: QuerysService
   ) {
     menuCtrl.enable(false, "first");
   }
@@ -43,10 +45,10 @@ export class LoginPage implements OnInit {
    * Sign in with Email
    */
   loginWithEmail() {
-    console.log(this.username, this.password);
     if (isNullOrUndefined(this.username) || isNullOrUndefined(this.password)) {
       this.presentToast("Hay campos vacios");
     } else {
+      this.queryService.currentUser(this.username);
       this.authService
         .login(this.username, this.password)
         .then(res => {

@@ -6,7 +6,7 @@ export class User {
   name: string;
   personalExpenses: PersonalExpense[];
   phone: number;
-  UID: string;
+  uID: string;
 
   constructor(email: string, name: string) {
     this.email = email;
