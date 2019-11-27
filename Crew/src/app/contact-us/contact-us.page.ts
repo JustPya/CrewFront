@@ -9,10 +9,10 @@ import { MenuController } from '@ionic/angular';
 export class ContactUsPage implements OnInit {
 
   constructor(private menu: MenuController) { }
-  
+
   openMenu() {
-    console.log("do some");
-    this.menu.open("first");
+    console.log('Open main menu');
+    this.menu.open('first');
   }
   ngOnInit() {
   }

@@ -1,0 +1,30 @@
+ion-item{
+    border: solid grey 1px;
+    border-radius: 8px;
+}
+
+ion-card{
+    padding: 7%;
+    height: 70%;
+}
+
+.button{
+    //border: solid grey 1px;
+    text-align: right;
+
+    margin-top: 5%;
+}
+
+.classdiv{
+    height: 95%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+ion-card-subtitle{
+   // border: solid grey 1px;
+    margin-bottom: 10%;
+}
