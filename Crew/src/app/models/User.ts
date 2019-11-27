@@ -1,16 +1,16 @@
 import { Group } from './Group';
 export class User {
-  Email: string;
-  Friends: Friend[];
-  Groups: Group[];
-  Name: string;
-  PersonalExpenses: PersonalExpense[];
-  Phone: number;
-  UID: string;
+  email: string;
+  friends: Friend[];
+  groups: Group[];
+  name: string;
+  personalExpenses: PersonalExpense[];
+  phone: number;
+  uID: string;
 
   constructor(email: string, name: string) {
-    this.Email = email;
-    this.Name = name;
+    this.email = email;
+    this.name = name;
   }
 }
 
