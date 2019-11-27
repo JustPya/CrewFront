@@ -1,0 +1,122 @@
+<ion-header no-border>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot='start'>
+      <ion-button expand='block' (click)='openMenu()'>
+        <ion-icon slot='icon-only' name='menu'></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <b>Party</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>  
+
+<ion-content class='ion-padding'>
+  <ion-item class='groupDescription'>
+    <ion-label class="ion-text-wrap">
+      {{description}}
+    </ion-label>
+  </ion-item>
+
+  <ion-item lines='none' class='idItem'>
+    <ion-label color='secondary' (click)='showMemberList()'>Members</ion-label>
+    <ion-badge slot='end' color='secondary'>{{numMembers}}</ion-badge>
+    <ion-icon slot='end' name='add-circle' color='primary' (click)='showToAddMember()'></ion-icon>
+  </ion-item>
+
+  <p-table [columns]="cols" [value]="expenses" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-exp>
+        <tr  [pSelectableRow]='rowData'>
+          <td>
+            <b>{{exp.name}}</b>
+          </td>
+          <td>
+             {{exp.amount | currency: "USD":"symbol":"1.0-0"}}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary" let-rowData>
+          <div style="text-align:center">
+            <ion-label>TOTAL {{total | currency: "USD":"symbol":"1.0-0"}}</ion-label>
+          </div>
+      </ng-template> 
+  </p-table>
+
+  <!--Dialog for add members -->
+  <p-dialog header="Add Member" [(visible)]='displayToAddMembers' [responsive]="true"  [style]="{width: '100px'}">
+    <ion-list *ngFor='let friend of friends; index as i'> 
+      <ion-item *ngIf="friend" lines='none'>
+        <ion-label>
+          <h2><b>{{friend.name}}</b></h2>
+        </ion-label>
+        <ion-icon name='add-circle' (click)='addMember(i)' color='primary'></ion-icon>
+      </ion-item>
+    </ion-list>
+  </p-dialog>
+
+  <!--Dialog for Add Expenses-->
+  <p-dialog header="Expenses" [(visible)]='displayToAddExpenses'>
+    <ion-list>
+      <ion-item>
+          <ion-label position="stacked">Name<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="text" [(ngModel)]="exp.name" name="expName" required></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">Amount<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="number" [(ngModel)]="exp.amount" name="expAmount" required></ion-input>
+      </ion-item>
+    </ion-list>
+      <div class="button">
+        <ion-button slot='end' size='small' color='primary' (click)='saveExpense()'>Save</ion-button>
+      </div>
+  </p-dialog>
+
+  <!--Dialog to update or delete expense-->
+  <p-dialog header="Expenses" [(visible)]='displayExpenses'>
+      <ion-list>
+        <ion-item>
+            <ion-label position="stacked">Name<ion-text color="danger">*</ion-text></ion-label>
+            <ion-input type="text" [(ngModel)]="selectedExp.name" name="expName" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Amount<ion-text color="danger">*</ion-text></ion-label>
+            <ion-input type="number" [(ngModel)]="selectedExp.amount" name="expAmount" required></ion-input>
+        </ion-item>
+        <ion-item *ngFor='let debtor of selectedExp.deb'>
+            <ion-label position="stacked">{{debtor.name}}<ion-text color="danger">*</ion-text></ion-label>
+            <ion-input type="number" [(ngModel)]="debtor.amount" name="expAmount" required></ion-input>
+        </ion-item>
+      </ion-list>
+        <div class="button">
+            <ion-button slot='end' size='small' color='danger' (click)='removeExpense()'>Remove</ion-button>
+            <ion-button slot='end' size='small' color='primary' (click)='updateExpense()'>Save</ion-button>
+        </div>
+    </p-dialog>
+
+  <!--Dialog-List of members of the group-->
+  <p-dialog header='Members of the Group' [(visible)]="displayMembersList">
+    <ion-list *ngFor='let member of participants; index as i'> 
+      <ion-item *ngIf="member" >
+        <ion-label>
+          <h2><b>{{member.name}}</b></h2>
+          <h3>Presupuesto: {{member.budget | currency: "USD":"symbol":"1.0-0"}}</h3>
+        </ion-label>
+        <ion-icon name="close-circle" color='primary' (click)='deleteMember(i)'></ion-icon>
+      </ion-item>
+    </ion-list>  
+  </p-dialog>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)='showDialogToAdd()'>
+          <ion-icon name="create"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+</ion-content>

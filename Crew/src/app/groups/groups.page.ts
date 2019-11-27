@@ -13,8 +13,12 @@ export class GroupsPage {
   /*
   Method to navigate to create group
   */
-  navigateToCreateGroup(){
+  navigateToCreateGroup() {
     this.router.navigateByUrl('createGroup');
+  }
+
+  navigateToGroup() {
+    this.router.navigateByUrl('group-items');
   }
 
 }

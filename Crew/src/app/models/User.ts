@@ -14,12 +14,12 @@ export class User {
   }
 }
 
-export interface PersonalExpense {
-  Object: string;
-  Type: string;
-  Amount: number;
+export class PersonalExpense {
+  object: string;
+  type: string;
+  amount: number;
 }
-export interface Friend {
-  Name: string;
+export class Friend {
+  name: string;
   UID: string;
 }

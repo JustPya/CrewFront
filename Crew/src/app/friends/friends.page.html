@@ -15,25 +15,26 @@
       <ion-title>Search</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-      <ion-searchbar></ion-searchbar>
+      <ion-searchbar (ionChange)="search($event)"></ion-searchbar>
     </ion-toolbar>
   </div>
-
-  <ion-list>
-    <div *ngFor="let friend of friends; index as i">
-      <ion-item *ngIf="friend">
-        <ion-avatar>
-          <img src={{friend.imag}}>
-        </ion-avatar>
-        <ion-label>
-          <h2>{{friend.name}}</h2>
-        </ion-label>
-        <ion-button shape="round" (click)="deleteFriend(i)">
-          <ion-icon name="close" ></ion-icon>
-        </ion-button>
-      </ion-item>
-    </div>
-  </ion-list>
+  <div class="friends">
+    <ion-list >
+      <div *ngFor="let friend of friends; index as i">
+        <ion-item *ngIf="friend">
+          <ion-avatar class="image">
+            <img src={{friend.imag}}>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{friend.name}}</h2>
+          </ion-label>
+          <ion-button shape="round" (click)="deleteFriend(i)">
+            <ion-icon name="close" ></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)='presentAlert()'>
       <ion-icon name="add"></ion-icon>
