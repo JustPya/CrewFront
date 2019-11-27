@@ -1,13 +1,31 @@
 <ion-header no-border>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-     <ion-button expand="block" (click)="openMenu()">
-        <ion-icon slot="icon-only" name="menu"></ion-icon>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot='start'>
+     <ion-button expand='block' (click)='openMenu()'>
+        <ion-icon slot='icon-only' name='menu'></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>  
 
 <ion-content>
-
+    <div class='classdiv'>
+      <ion-card>
+        <ion-card-subtitle>
+          Tell us whatever you want
+        </ion-card-subtitle>
+    
+        <ion-card-content>
+          <ion-item>
+            <ion-textarea rows='8' cols='25' placeholder='Your message'></ion-textarea>
+          </ion-item>
+          <div class='button'>
+            <ion-button slot='end'>
+              <ion-icon name='send'></ion-icon>
+              <label>Send</label>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
 </ion-content>
