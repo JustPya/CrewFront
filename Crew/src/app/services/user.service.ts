@@ -1,14 +1,31 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
+import { User } from '../models/User';
+import { switchMap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private firestore: AngularFirestore) { }
 
-
+  currentUser: Observable<User>;
+  constructor(
+    private AFauth: AngularFireAuth,
+    private firestore: AngularFirestore,
+    private dataBase: AngularFirestore) {
+    this.currentUser = this.AFauth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.dataBase.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    );
+  }
   /** CRUD for User section
    * recordId: User Id being modified
    * record: User data that will reeplaze recordId document
@@ -24,6 +41,24 @@ export class UserService {
   }
   deleteUser(recordId) {
     this.firestore.doc('Users/' + recordId).delete();
+  }
+  /**
+   * This sets user data to firestore in login
+   * @param user This to get the autenticated user id
+   */
+  updateUserData(user) {
+    const userRef = this.dataBase.doc<any>(`Users/${user.uid}`);
+    const data: User = {
+      uID: user.uid,
+      email: user.email,
+      name: '',
+      friends: [],
+      groups: [],
+      personalExpenses: [],
+      phone: 0
+    };
+    console.log(data);
+    return userRef.set(data, {merge: true});
   }
 
   /** CRUD for Friend section
