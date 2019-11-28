@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Group } from '../models/Group';
+import { snapshotChanges } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
+
+  groups: Group[];
   constructor(private firestore: AngularFirestore) { }
 
 
@@ -15,9 +19,15 @@ export class GroupService {
   createGroup(recordId) {
     return this.firestore.collection('Group').add(JSON.parse(JSON.stringify(recordId)));
   }
-
+  readAllGroupsUser() {
+    const groupRef = this.firestore.collection('Group', ref =>
+    ref.where('participants', '==', 'mi'));
+  }
+  readAllGroups() {
+    return this.firestore.collection('Group').valueChanges();
+  }
   readGroup(recordId) {
-    return this.firestore.doc('Group/' + recordId).snapshotChanges();
+    this.firestore.doc('Group/' + recordId).snapshotChanges();
   }
 
   updateGroup(recordID, record) {

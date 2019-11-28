@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,24 +11,45 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-
-  name = "Fernanda Moreno";
+  name = '';
   public appMenu = [
-    {title: 'My Wallet', url: '/tabs/wallet', icon: 'home'},
-    {title: 'Contact us', url: '/contact-us', icon: 'mail'},
-    {title: 'Settings', url: '/settings', icon: 'settings'},
-    {title: 'Friends', url: '/friends', icon: 'contacts'},
-    {title: 'Log out', url: '/logout', icon: 'power'}
-  ]
-
+    { title: 'My Wallet', url: '/tabs/wallet', icon: 'home' },
+    { title: 'Contact us', url: '/contact-us', icon: 'mail' },
+    { title: 'Settings', url: '/settings', icon: 'settings' },
+    { title: 'Friends', url: '/friends', icon: 'contacts' },
+    { title: 'Log out', url: '/logout', icon: 'power' }
+  ];
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public alertController: AlertController,
+    private authService: AuthService
   ) {
     this.initializeApp();
   }
 
+  /*
+  Method to open Log Out alert
+  */
+  async presentAlert(title) {
+    if (title === 'Log out') {
+      const alert = await this.alertController.create({
+        header: 'Log out',
+        message: 'Are you sure you want to log out?',
+        buttons: [{
+          text: 'Yes',
+          handler: data => {
+            this.authService.signOut();
+          }
+        },
+        {
+          text: 'No',
+        }]
+      });
+      await alert.present();
+    }
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
