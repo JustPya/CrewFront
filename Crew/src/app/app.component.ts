@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -23,9 +23,33 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public alertController: AlertController
   ) {
     this.initializeApp();
+  }
+
+  /*
+  Method to open Log Out alert
+  */
+  async presentAlert(title) {
+    if(title === 'Log out'){
+      const alert = await this.alertController.create({
+        header: 'Log out',
+        message: 'Are you sure you want to log out?',
+        buttons: [{
+          text: 'Yes',
+          handler: data => {
+            console.log("codigo para desloguear");
+            
+          }
+        },
+        {
+          text: 'No',
+        }]
+      });
+      await alert.present();
+    }
   }
 
   initializeApp() {
