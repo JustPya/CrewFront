@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 import { User } from '../models/User';
 import { AuthService } from '../services/auth.service';
+import { QuerysService } from '../services/querys.service';
 
 
 @Component({
@@ -23,11 +24,14 @@ export class RegisterPage implements OnInit {
   loader: any;
   user: User;
 
-  constructor(private router: Router,
-              private authService: AuthService,
-              private navCtrl: NavController,
-              private userService: UserService,
-              private loadingController: LoadingController) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private userService: UserService,
+    private loadingController: LoadingController,
+    private queryService: QuerysService) {
+
   }
 
   hideShowPassword() {
@@ -44,7 +48,7 @@ export class RegisterPage implements OnInit {
   registerUser() {
     this.showLoader();
     this.authService.registerUser(this.email, this.password).then(resp => {
-      this.createRecord();
+      this.goLoginPage();
       this.hideLoader();
       console.log(resp);
     })

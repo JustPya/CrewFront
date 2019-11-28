@@ -16,12 +16,12 @@
         <ion-item class="items">
           <ion-label position="stacked">Name<ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input maxlength=30 required=true type="text" (keydown)="nameToast($event)"></ion-input>
+          <ion-input maxlength=30  name="nameInput" required=true type="text" [(ngModel)]="name" (keydown)="nameToast($event)"></ion-input>
         </ion-item>
         <ion-item class="items">
           <ion-label position="stacked">Description <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-textarea rows="6" cols="20" required=true (keyup)="descriptionToast($event)" maxlength=215></ion-textarea>
+          <ion-textarea rows="6" cols="20" name="descriptionInput" [(ngModel)]="description" required=true (keyup)="descriptionToast($event)" maxlength=215></ion-textarea>
         </ion-item>
         <ion-text color="medium" id="count">{{countDescription}}/215</ion-text>
       </div>

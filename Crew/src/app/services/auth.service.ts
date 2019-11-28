@@ -1,14 +1,26 @@
-import { Injectable } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/auth";
-import * as firebase from "firebase/app";
-import { resolve } from "url";
-import { reject } from "q";
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
+import { Router } from '@angular/router';
+import { User } from '../models/User';
+import { QuerysService } from './querys.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { UserService } from './user.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthService {
-  constructor(private AFauth: AngularFireAuth) {}
+
+  currentUser: Observable<User>;
+  constructor(
+    private userService: UserService,
+    private AFauth: AngularFireAuth,
+    private router: Router,
+    private queryService: QuerysService,
+    private dataBase: AngularFirestore) {
+  }
 
   /*
    * From email and password, try to sign in with email an password to firebase.
@@ -19,15 +31,16 @@ export class AuthService {
         .signInWithEmailAndPassword(email, password)
         .then(user => {
           resolve(user);
+          this.userService.updateUserData(user.user);
         })
         .catch(err => {
           console.log(err);
-          if (err.code == "auth/user-not-found") {
-            reject("El correo electrónico no está registrado.");
-          } else if (err.code == "auth/wrong-password") {
-            reject("Contraseña Incorrecta.");
+          if (err.code === 'auth/user-not-found') {
+            reject('El correo electrónico no está registrado.');
+          } else if (err.code === 'auth/wrong-password') {
+            reject('Contraseña Incorrecta.');
           } else {
-            reject("Error al iniciar sesión.");
+            reject('Error al iniciar sesión.');
           }
         });
     });
@@ -44,11 +57,12 @@ export class AuthService {
           firebase.auth.GoogleAuthProvider.credential(idToken)
         )
         .then(user => {
+          this.userService.updateUserData(user.user);
           resolve(user);
         })
         .catch(err => {
           console.log(err);
-          reject("Error al iniciar sesión.");
+          reject('Error al iniciar sesión.');
         });
     });
   }
@@ -61,12 +75,21 @@ export class AuthService {
   registerUser(email: string, password: string) {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(
-        res => resolve(res),
-        err => reject(err));
+        .then(
+          user => {
+            this.userService.updateUserData(user.user);
+            resolve(user);
+          },
+          err => reject(err));
     });
-   }
+  }
   getAFauth(): AngularFireAuth {
     return this.AFauth;
+  }
+
+  signOut() {
+    return this.AFauth.auth.signOut().then(() => {
+      this.router.navigate(['']);
+    });
   }
 }
