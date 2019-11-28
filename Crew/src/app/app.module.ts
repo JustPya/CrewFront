@@ -13,6 +13,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -32,6 +33,7 @@ firebase.initializeApp(environment.firebase);
   providers: [
     StatusBar,
     SplashScreen,
+    EmailComposer,
     MenuController,
     GooglePlus,
     AngularFirestoreModule,

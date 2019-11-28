@@ -17,10 +17,10 @@
     
         <ion-card-content>
           <ion-item>
-            <ion-textarea rows='8' cols='25' placeholder='Your message'></ion-textarea>
+            <ion-textarea [(ngModel)]='body' rows='8' cols='25' placeholder='Your message'></ion-textarea>
           </ion-item>
           <div class='button'>
-            <ion-button slot='end'>
+            <ion-button slot='end'(click)='sendEmail()'>
               <ion-icon name='send'></ion-icon>
               <label>Send</label>
             </ion-button>
