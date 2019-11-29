@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Expense, Debtor, Participant, Group } from '../models/Group';
-import { Friend } from '../models/User';
+import { Friend, User } from '../models/User';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
 import { GroupService } from '../services/group.service';
 import { Observable } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-group-items',
@@ -15,6 +16,7 @@ import { Observable } from 'rxjs';
 export class GroupItemsPage implements OnInit {
 
   group: Group;
+  currentUser: User;
 
   displayToAddMembers = false;
   displayToAddExpenses = false;
@@ -38,7 +40,8 @@ export class GroupItemsPage implements OnInit {
   constructor(
     private menu: MenuController,
     private router: ActivatedRoute,
-    private groupService: GroupService) {
+    private groupService: GroupService,
+    private userService: UserService) {
   }
 
   /**
@@ -166,27 +169,22 @@ export class GroupItemsPage implements OnInit {
     ).subscribe(data => {
       console.log(data);
       // Aca hay que asignar los datos al objeto local, ya se traen desde el servicio
-      this.group = new Group(data.name, data.description, data.date);
+      this.group = new Group(data.name, data.description, data.date, data.participants);
     });
+
     this.cols = [
       { field: 'expense', header: 'Expense' },
       { field: 'amount', header: 'Amount' }
     ];
     this.description = 'This is a description too short but too cute';
     this.friends = new Array<Friend>();
-    this.friends = [
-      { name: 'Fernanda', uID: 'UIDFer' },
-      { name: 'Andrés', uID: 'UIDAnd' },
-      { name: 'Daniel', uID: 'UIDDan' },
-      { name: 'David', uID: 'UIDDav' },
-      { name: 'Marlon', uID: 'UIDMar' },
-      { name: 'Alejandro', uID: 'UIDAle' },
-      { name: 'Edward', uID: 'UIDEdw' },
-      { name: 'Carlos', uID: 'UIDCar' },
-      { name: 'Johann', uID: 'UIDJoh' },
-    ];
-
     this.participants = new Array<Participant>();
+
+    this.userService.currentUser.subscribe(data => {
+      this.currentUser = data;
+      this.friends = data.friends;
+    });
+
     this.expenses = new Array<Expense>();
     this.exp = new Expense();
     this.selectedExp = new Expense();
