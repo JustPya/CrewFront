@@ -73,7 +73,7 @@ export class UserService {
    * record: Friend data that will reeplaze recordId document
    */
   createFriend(recordId, record) {
-    return this.dataBase.collection('Users/' + recordId + '/Friends').add(JSON.parse(JSON.stringify(record)));
+    return this.dataBase.collection('Users');
   }
   readFriend(userId, recordId) {
     return this.dataBase.doc('Users/' + userId + '/Friends/' + recordId).snapshotChanges();

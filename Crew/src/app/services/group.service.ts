@@ -23,8 +23,8 @@ export class GroupService {
     const groupRef = this.firestore.collection<Group>('Group').get().toPromise().then(snapshot => {
       snapshot.forEach(snap => {
         console.log(snap.data().participants);
-        // if (snap.data().participants.includes(userID)) {
-        // }
+        if (snap.data().participants.includes(userID)) {
+        }
       });
     });
   }
