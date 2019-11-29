@@ -19,23 +19,21 @@
     </ion-toolbar>
   </div>
   <div class="friends">
-    <ion-list >
+    <ion-list>
       <div *ngFor="let friend of friends; index as i">
         <ion-item *ngIf="friend">
-          <ion-avatar class="image">
-            <img src={{friend.imag}}>
-          </ion-avatar>
+          <ion-icon slot="start" name="contact"></ion-icon>
           <ion-label>
             <h2>{{friend.name}}</h2>
           </ion-label>
           <ion-button shape="round" (click)="deleteFriend(i)">
-            <ion-icon name="close" ></ion-icon>
+            <ion-icon name="close"></ion-icon>
           </ion-button>
         </ion-item>
       </div>
     </ion-list>
   </div>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="end">
     <ion-fab-button (click)='presentAlert()'>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

@@ -5,6 +5,7 @@ import { User, Friend, PersonalExpense } from '../models/User';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Group, Expense } from '../models/Group';
+import { firestore } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -53,8 +54,9 @@ export class UserService {
       uID: user.uid,
       email: user.email,
       name: nameUser,
-      // tslint:disable-next-line: max-line-length
-      friends: [{name: 'Daniel', uID: '1234'}, {name: 'David', uID: '2134'}, {name: 'Fernanda', uID: '3124'}, {name: 'Andres', uID: '4123'}],
+      friends:
+        [{ name: 'Daniel', uID: '1234' }, { name: 'David', uID: '2134' },
+        { name: 'Fernanda', uID: '3124' }, { name: 'Andres', uID: '4123' }],
       groups: new Array<Group>(),
       personalExpenses: new Array<PersonalExpense>(),
       phone: 0
@@ -77,8 +79,10 @@ export class UserService {
   updateFriend(userId, recordId, record) {
     this.firestore.doc('Users/' + userId + '/Friends' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
-  deleteFriend(userId, recordId) {
-    this.firestore.doc('Users/' + userId + '/Friends' + recordId.delete());
+  deleteFriend(userId, friend) {
+    this.firestore.doc('Users/' + userId).update({
+      friends: firestore.FieldValue.arrayRemove(friend)
+    });
   }
 
   /** CRUD for Personal Expense section

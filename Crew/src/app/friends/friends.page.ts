@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
+import { Friend, User } from '../models/User';
+import { UserService } from '../services/user.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-friends',
@@ -7,36 +11,33 @@ import { MenuController, AlertController } from '@ionic/angular';
   styleUrls: ['./friends.page.scss'],
 })
 export class FriendsPage implements OnInit {
-  
+
   friendName: string;
 
   /*
     Example of friends
   */
-  friends = [] = [{imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Camila'},
-  {imag:'https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg', name: 'Julian'},
-  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Eduardo'},
-  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Camila'},
-  {imag:'https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg', name: 'Julian'},
-  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Eduardo'},
-  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Camila'},
-  {imag:'https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg', name: 'Julian'},
-  {imag:'https://www.biodiversidad.gob.mx/assets/images/recursos/bdi/02.jpg', name: 'Eduardo'}
-]
+  currentUser: User;
+  friends: Friend[] = [];
 
 
-
-constructor(private menu: MenuController, public alertController: AlertController) { }
+  constructor(
+    private menu: MenuController,
+    private alertController: AlertController,
+    private userService: UserService) { }
   /*
   Method to open menu
   */
   openMenu() {
-    console.log("do some");
-    this.menu.open("first");
+    console.log('do some');
+    this.menu.open('first');
   }
-            ngOnInit() {
-              
-            }
+  ngOnInit() {
+    this.userService.currentUser.subscribe(data => {
+      this.currentUser = data;
+      this.friends = data.friends;
+    });
+  }
   /*
     Method to open alert and add friends
   */
@@ -57,10 +58,9 @@ constructor(private menu: MenuController, public alertController: AlertControlle
       {
         text: 'ADD',
         handler: data => {
-          if(data.username!=null && data.username!=''){
+          if (data.username != null && data.username !== '') {
             this.friendName = data.username;
-          }
-          else{
+          } else {
             this.presentAlert();
           }
         }
@@ -68,12 +68,12 @@ constructor(private menu: MenuController, public alertController: AlertControlle
     });
     await alert.present();
   }
-  
+
   /*
     Method to delete friends
   */
-  deleteFriend(i){
-    delete this.friends[i];
+  deleteFriend(i: string | number) {
+    this.userService.deleteFriend(this.currentUser.uID, this.friends[i]);
   }
 
   /*

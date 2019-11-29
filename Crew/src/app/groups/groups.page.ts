@@ -26,6 +26,7 @@ export class GroupsPage {
  * a group array an set the id in the map
  */
     this.groupService.readAllGroups().subscribe(data => {
+      this.groups = [];
       data.map(a => {
         const id = a.payload.doc.id;
         const groupData = a.payload.doc.data() as Group;
