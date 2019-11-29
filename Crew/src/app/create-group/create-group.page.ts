@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { GroupService } from '../services/group.service';
-import { Group } from '../models/Group';
+import { Group, Participant } from '../models/Group';
+import { UserService } from '../services/user.service';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-create-group',
@@ -18,6 +20,7 @@ export class CreateGroupPage implements OnInit {
   private name: string;
   private description: string;
   private date: Date;
+  private participants: Array<Participant>;
   private countDescription = 0;
   private countName = 0;
 
@@ -25,10 +28,16 @@ export class CreateGroupPage implements OnInit {
     private menu: MenuController,
     public toastController: ToastController,
     private router: Router,
-    private groupService: GroupService) { }
+    private groupService: GroupService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.date = new Date();
+    this.userService.currentUser.subscribe(data => {
+      this.participants = [
+        new Participant(data.name, data.uID)
+      ];
+    });
   }
   /*
   Method to open menu
@@ -42,7 +51,7 @@ export class CreateGroupPage implements OnInit {
   */
 
   navigateToGroups() {
-    this.group = new Group(this.name, this.description, this.date);
+    this.group = new Group(this.name, this.description, this.date, this.participants);
     this.groupService.createGroup(this.group);
     this.router.navigateByUrl('tabs/groups');
   }

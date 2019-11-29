@@ -6,10 +6,11 @@ export class Group {
     total: number;
     date: Date;
 
-    constructor(name: string, description: string, date: Date) {
+    constructor(name: string, description: string, date: Date, participants: Participant[]) {
       this.name = name;
       this.description = description;
       this.date = date;
+      this.participants = participants;
     }
 }
 export class Participant {
@@ -17,9 +18,9 @@ export class Participant {
   budget: number;
   uID: string;
 
-  constructor(name: string, UID: string) {
+  constructor(name: string, uID: string) {
     this.name = name;
-    this.uID = UID;
+    this.uID = uID;
     this.budget = 0;
   }
 }
