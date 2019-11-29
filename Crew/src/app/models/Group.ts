@@ -4,10 +4,12 @@ export class Group {
     participants: Participant[];
     description: string;
     total: number;
+    date: Date;
 
-    constructor(name: string, description: string) {
+    constructor(name: string, description: string, date: Date) {
       this.name = name;
       this.description = description;
+      this.date = date;
     }
 }
 export class Participant {

@@ -21,15 +21,16 @@ export class GroupsPage {
 
 
 /**
- * This suscribe to a document Reference to Group, and loop 
- * over the snapshots(Results), and then push each object into 
+ * This suscribe to a document Reference to Group, and loop
+ * over the snapshots(Results), and then push each object into
  * a group array an set the id in the map
  */
     this.groupService.readAllGroups().subscribe(data => {
+      this.groups = [];
       data.map(a => {
         const id = a.payload.doc.id;
         const groupData = a.payload.doc.data() as Group;
-        const group = new Group(groupData.name, groupData.description);
+        const group = new Group(groupData.name, groupData.description, groupData.date);
         this.ids.set(group, id);
         this.groups.push(group);
       });
