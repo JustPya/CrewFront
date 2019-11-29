@@ -20,19 +20,26 @@ export class GroupsPage {
     private groupService: GroupService) {
 
 
-/**
- * This suscribe to a document Reference to Group, and loop
- * over the snapshots(Results), and then push each object into
- * a group array an set the id in the map
- */
-    this.groupService.readAllGroups().subscribe(data => {
+    /**
+     * This suscribe to a document Reference to Group, and loop
+     * over the snapshots(Results), and then push each object into
+     * a group array an set the id in the map
+     */
+    this.groupService.readGroupsByUser().subscribe(data => {
       this.groups = [];
       data.map(a => {
         const id = a.payload.doc.id;
         const groupData = a.payload.doc.data() as Group;
-        const group = new Group(groupData.name, groupData.description, groupData.date);
-        this.ids.set(group, id);
-        this.groups.push(group);
+        if (groupData.participants) {
+          groupData.participants.forEach(participant => {
+            console.log(participant);
+            if (participant.uID === userService.globalUser.uID) {
+              const group = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
+              this.ids.set(group, id);
+              this.groups.push(group);
+            }
+          });
+        }
       });
     });
   }

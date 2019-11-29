@@ -19,14 +19,8 @@ export class GroupService {
   createGroup(recordId) {
     return this.firestore.collection('Group').add(JSON.parse(JSON.stringify(recordId)));
   }
-  readGroupsByUser(userID) {
-    const groupRef = this.firestore.collection<Group>('Group').get().toPromise().then(snapshot => {
-      snapshot.forEach(snap => {
-        console.log(snap.data().participants);
-        if (snap.data().participants.includes(userID)) {
-        }
-      });
-    });
+  readGroupsByUser() {
+    return this.firestore.collection<Group>('Group').snapshotChanges();
   }
   readAllGroups() {
     return this.firestore.collection('Group').snapshotChanges();
