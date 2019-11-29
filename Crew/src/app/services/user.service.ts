@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { User, Friend, PersonalExpense } from '../models/User';
+import { User, PersonalExpense } from '../models/User';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Group, Expense } from '../models/Group';
+import { Group } from '../models/Group';
 import { firestore } from 'firebase';
 
 @Injectable({
