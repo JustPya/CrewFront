@@ -11,6 +11,7 @@ export class Group {
       this.description = description;
       this.date = date;
       this.participants = participants;
+      this.expenses = new Array<Expense>();
     }
 }
 export class Participant {
