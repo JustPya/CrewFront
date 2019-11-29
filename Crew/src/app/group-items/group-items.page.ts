@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-import { Expense, Debtor, Participant } from '../models/Group';
+import { Expense, Debtor, Participant, Group } from '../models/Group';
 import { Friend } from '../models/User';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap, map } from 'rxjs/operators';
+import { GroupService } from '../services/group.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-group-items',
@@ -9,6 +13,8 @@ import { Friend } from '../models/User';
   styleUrls: ['./group-items.page.scss'],
 })
 export class GroupItemsPage implements OnInit {
+
+  group: Group;
 
   displayToAddMembers = false;
   displayToAddExpenses = false;
@@ -29,13 +35,16 @@ export class GroupItemsPage implements OnInit {
   updateExp: Expense;
   exp: Expense;
   deb: Debtor;
-  constructor(private menu: MenuController) {
-   }
+  constructor(
+    private menu: MenuController,
+    private router: ActivatedRoute,
+    private groupService: GroupService) {
+  }
 
-   /**
-    * Show dialog to add members
-    */
-   showToAddMember() {
+  /**
+   * Show dialog to add members
+   */
+  showToAddMember() {
     this.displayToAddExpenses = this.displayMembersList = false;
     this.displayToAddMembers = true;
   }
@@ -91,9 +100,9 @@ export class GroupItemsPage implements OnInit {
   saveExpense() {
     this.exp.deb = new Array<Debtor>();
     this.participants.forEach(f => {
-      this.deb = new Debtor(f.name, f.UID);
+      this.deb = new Debtor(f.name, f.uID);
       this.exp.deb.push(this.deb);
-    } );
+    });
     const duplicateExp = this.expenses.findIndex(f => f.name.toLocaleLowerCase() == this.exp.name.toLocaleLowerCase());
     if (duplicateExp === -1) {
       this.expenses.push(this.exp);
@@ -136,8 +145,8 @@ export class GroupItemsPage implements OnInit {
     const friend = this.friends[i];
     const isMember = this.participants.findIndex(f => f.name.toLocaleLowerCase() == friend.name.toLocaleLowerCase());
     if (isMember === -1) {
-      const newParticipant = new Participant(friend.name, friend.UID);
-      const newDeb = new Debtor(friend.name, friend.UID);
+      const newParticipant = new Participant(friend.name, friend.uID);
+      const newDeb = new Debtor(friend.name, friend.uID);
       this.participants.push(newParticipant);
       this.numMembers = this.participants.length;
       this.displayToAddMembers = false;
@@ -148,22 +157,33 @@ export class GroupItemsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.router.snapshot.paramMap.get('id');
+
+    this.router.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+       this.groupService.readGroup(params.get('id'))
+      )
+    ).subscribe(data => {
+      console.log(data);
+      // Aca hay que asignar los datos al objeto local, ya se traen desde el servicio
+      this.group = new Group(data.name, data.description);
+    });
     this.cols = [
       { field: 'expense', header: 'Expense' },
       { field: 'amount', header: 'Amount' }
-  ];
+    ];
     this.description = 'This is a description too short but too cute';
     this.friends = new Array<Friend>();
     this.friends = [
-      {name: 'Fernanda',  UID: 'UIDFer'},
-      {name: 'Andrés',  UID: 'UIDAnd'},
-      {name: 'Daniel',  UID: 'UIDDan'},
-      {name: 'David',  UID: 'UIDDav'},
-      {name: 'Marlon',  UID: 'UIDMar'},
-      {name: 'Alejandro',  UID: 'UIDAle'},
-      {name: 'Edward',  UID: 'UIDEdw'},
-      {name: 'Carlos',  UID: 'UIDCar'},
-      {name: 'Johann',  UID: 'UIDJoh'},
+      { name: 'Fernanda', uID: 'UIDFer' },
+      { name: 'Andrés', uID: 'UIDAnd' },
+      { name: 'Daniel', uID: 'UIDDan' },
+      { name: 'David', uID: 'UIDDav' },
+      { name: 'Marlon', uID: 'UIDMar' },
+      { name: 'Alejandro', uID: 'UIDAle' },
+      { name: 'Edward', uID: 'UIDEdw' },
+      { name: 'Carlos', uID: 'UIDCar' },
+      { name: 'Johann', uID: 'UIDJoh' },
     ];
 
     this.participants = new Array<Participant>();

@@ -19,10 +19,10 @@ export class GroupService {
   createGroup(recordId) {
     return this.firestore.collection('Group').add(JSON.parse(JSON.stringify(recordId)));
   }
-  readAllGroupsUser(userID) {
+  readGroupsByUser(userID) {
     const groupRef = this.firestore.collection<Group>('Group').get().toPromise().then(snapshot => {
       snapshot.forEach(snap => {
-        console.log(snap.data().participant);
+        console.log(snap.data().participants);
         // if (snap.data().participants.includes(userID)) {
         // }
       });
@@ -32,7 +32,7 @@ export class GroupService {
     return this.firestore.collection('Group').snapshotChanges();
   }
   readGroup(recordId) {
-    this.firestore.doc('Group/' + recordId).snapshotChanges();
+    return this.firestore.doc<Group>('Group/' + recordId).valueChanges();
   }
 
   updateGroup(recordID, record) {

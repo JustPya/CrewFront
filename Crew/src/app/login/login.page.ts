@@ -93,7 +93,7 @@ export class LoginPage implements OnInit {
       const credential = await this.authService
         .getAFauth()
         .auth.signInWithPopup(provider);
-      this.userService.updateUserData(credential.user);
+      this.userService.updateUserData(credential.user, credential.user.displayName);
       this.hideLoader();
     } catch (err) {
       this.hideLoader();

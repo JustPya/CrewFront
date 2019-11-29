@@ -30,7 +30,6 @@ export class AuthService {
         .signInWithEmailAndPassword(email, password)
         .then(user => {
           resolve(user);
-          this.userService.updateUserData(user.user);
         })
         .catch(err => {
           console.log(err);
@@ -56,7 +55,7 @@ export class AuthService {
           firebase.auth.GoogleAuthProvider.credential(idToken)
         )
         .then(user => {
-          this.userService.updateUserData(user.user);
+          this.userService.updateUserData(user.user, user.user.displayName);
           resolve(user);
         })
         .catch(err => {
@@ -71,12 +70,12 @@ export class AuthService {
    * @param email email from register page
    * @param password password from register page
    */
-  registerUser(email: string, password: string) {
+  registerUser(email: string, password: string, name: string) {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(
           user => {
-            this.userService.updateUserData(user.user);
+            this.userService.updateUserData(user.user, name);
             resolve(user);
           },
           err => reject(err));

@@ -20,7 +20,7 @@ export class AppComponent {
     { title: 'Contact us', url: '/contact-us', icon: 'mail' },
     { title: 'Settings', url: '/settings', icon: 'settings' },
     { title: 'Friends', url: '/friends', icon: 'contacts' },
-    { title: 'Log out', url: '/logout', icon: 'power' }
+    { title: 'Log out', url: '', icon: 'power' }
   ];
   constructor(
     private platform: Platform,

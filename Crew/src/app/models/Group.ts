@@ -13,11 +13,11 @@ export class Group {
 export class Participant {
   name: string;
   budget: number;
-  UID: string;
+  uID: string;
 
   constructor(name: string, UID: string) {
     this.name = name;
-    this.UID = UID;
+    this.uID = UID;
     this.budget = 0;
   }
 }
@@ -30,12 +30,12 @@ export class Expense {
 
 export class Debtor {
     name: string;
-    UID: string;
+    uID: string;
     amount: number;
 
   constructor(name: string, UID: string) {
     this.name = name;
-    this.UID = UID;
+    this.uID = UID;
     this.amount = 0;
   }
  }
