@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { QuerysService } from '../services/querys.service';
+import { GroupService } from '../services/group.service';
+import { User } from '../models/User';
+import { Observable } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-activity',
@@ -8,14 +12,21 @@ import { QuerysService } from '../services/querys.service';
   styleUrls: ['activity.page.scss']
 })
 export class ActivityPage implements OnInit {
-
-  name = '';
-    ngOnInit(): void {
-      this.test();
-    }
-  constructor(private authService: AuthService,
-              private querysService: QuerysService) { }
+  currentUser: User;
+  email: string;
+  ngOnInit(): void {
+  }
+  constructor(
+    private userService: UserService,
+    private groupService: GroupService) {
+    this.userService.currentUser.subscribe(data => {
+      this.currentUser = data;
+      this.email = data.email;
+      console.log(data.uID);
+    });
+  }
 
   test() {
+    this.groupService.readAllGroupsUser(this.currentUser.uID);
   }
 }

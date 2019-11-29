@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Group } from '../models/Group';
 import { UserService } from '../services/user.service';
 import { GroupService } from '../services/group.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-groups',
@@ -11,15 +12,28 @@ import { GroupService } from '../services/group.service';
   styleUrls: ['groups.page.scss']
 })
 export class GroupsPage {
-
-  groups;
+  ids: Map<string, Group> = new Map();
+  groups: Group[] = [];
   constructor(
     private router: Router,
     private userService: UserService,
     private groupService: GroupService) {
 
-    this.groups = this.groupService.readAllGroups();
 
+/**
+ * This suscribe to a document Reference to Group, and loop 
+ * over the snapshots(Results), and then push each object into 
+ * a group array an set the id in the map
+ */
+    this.groupService.readAllGroups().subscribe(data => {
+      data.map(a => {
+        const id = a.payload.doc.id;
+        const groupData = a.payload.doc.data() as Group;
+        this.ids.set(id, groupData);
+        const group = new Group(groupData.name, groupData.description);
+        this.groups.push(group);
+      });
+    });
   }
 
   /*

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { User } from '../models/User';
+import { User, Friend, PersonalExpense } from '../models/User';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Group, Expense } from '../models/Group';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UserService {
     this.currentUser = this.AFauth.authState.pipe(
       switchMap(user => {
         if (user) {
-          return this.dataBase.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.dataBase.doc<User>(`Users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -51,14 +52,14 @@ export class UserService {
     const data: User = {
       uID: user.uid,
       email: user.email,
-      name: '',
-      friends: [],
-      groups: [],
-      personalExpenses: [],
+      name: user.data,
+      friends: new Array<Friend>(),
+      groups: new Array<Group>(),
+      personalExpenses: new Array<PersonalExpense>(),
       phone: 0
     };
     console.log(data);
-    return userRef.set(data, {merge: true});
+    return userRef.set(data, { merge: true });
   }
 
   /** CRUD for Friend section

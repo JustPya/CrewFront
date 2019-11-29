@@ -4,6 +4,8 @@ import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
+import { User } from './models/User';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,8 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  name = '';
+  currentUser: User;
+  name: string;
   public appMenu = [
     { title: 'My Wallet', url: '/tabs/wallet', icon: 'home' },
     { title: 'Contact us', url: '/contact-us', icon: 'mail' },
@@ -23,10 +26,15 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public alertController: AlertController,
-    private authService: AuthService
+    private alertController: AlertController,
+    private authService: AuthService,
+    private userService: UserService
   ) {
     this.initializeApp();
+    this.userService.currentUser.subscribe( data => {
+      this.currentUser = data;
+      this.name = data.name;
+    });
   }
 
   /*

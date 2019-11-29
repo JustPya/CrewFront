@@ -19,12 +19,17 @@ export class GroupService {
   createGroup(recordId) {
     return this.firestore.collection('Group').add(JSON.parse(JSON.stringify(recordId)));
   }
-  readAllGroupsUser() {
-    const groupRef = this.firestore.collection('Group', ref =>
-    ref.where('participants', '==', 'mi'));
+  readAllGroupsUser(userID) {
+    const groupRef = this.firestore.collection<Group>('Group').get().toPromise().then(snapshot => {
+      snapshot.forEach(snap => {
+        console.log(snap.data().participant);
+        // if (snap.data().participants.includes(userID)) {
+        // }
+      });
+    });
   }
   readAllGroups() {
-    return this.firestore.collection('Group').valueChanges();
+    return this.firestore.collection('Group').snapshotChanges();
   }
   readGroup(recordId) {
     this.firestore.doc('Group/' + recordId).snapshotChanges();
