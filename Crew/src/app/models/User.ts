@@ -21,5 +21,5 @@ export class PersonalExpense {
 }
 export class Friend {
   name: string;
-  UID: string;
+  uID: string;
 }

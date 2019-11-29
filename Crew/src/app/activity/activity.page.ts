@@ -27,6 +27,6 @@ export class ActivityPage implements OnInit {
   }
 
   test() {
-    this.groupService.readAllGroupsUser(this.currentUser.uID);
+    this.groupService.readGroupsByUser(this.currentUser.uID);
   }
 }

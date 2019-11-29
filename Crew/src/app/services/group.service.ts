@@ -19,10 +19,10 @@ export class GroupService {
   createGroup(recordId) {
     return this.firestore.collection('Group').add(JSON.parse(JSON.stringify(recordId)));
   }
-  readAllGroupsUser(userID) {
+  readGroupsByUser(userID) {
     const groupRef = this.firestore.collection<Group>('Group').get().toPromise().then(snapshot => {
       snapshot.forEach(snap => {
-        console.log(snap.data().participant);
+        console.log(snap.data().participants);
         // if (snap.data().participants.includes(userID)) {
         // }
       });

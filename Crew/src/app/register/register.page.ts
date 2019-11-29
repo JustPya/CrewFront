@@ -47,7 +47,7 @@ export class RegisterPage implements OnInit {
    */
   registerUser() {
     this.showLoader();
-    this.authService.registerUser(this.email, this.password).then(resp => {
+    this.authService.registerUser(this.email, this.password, this.name).then(resp => {
       this.goLoginPage();
       this.hideLoader();
       console.log(resp);

@@ -91,7 +91,7 @@ export class GroupItemsPage implements OnInit {
   saveExpense() {
     this.exp.deb = new Array<Debtor>();
     this.participants.forEach(f => {
-      this.deb = new Debtor(f.name, f.UID);
+      this.deb = new Debtor(f.name, f.uID);
       this.exp.deb.push(this.deb);
     } );
     const duplicateExp = this.expenses.findIndex(f => f.name.toLocaleLowerCase() == this.exp.name.toLocaleLowerCase());
@@ -136,8 +136,8 @@ export class GroupItemsPage implements OnInit {
     const friend = this.friends[i];
     const isMember = this.participants.findIndex(f => f.name.toLocaleLowerCase() == friend.name.toLocaleLowerCase());
     if (isMember === -1) {
-      const newParticipant = new Participant(friend.name, friend.UID);
-      const newDeb = new Debtor(friend.name, friend.UID);
+      const newParticipant = new Participant(friend.name, friend.uID);
+      const newDeb = new Debtor(friend.name, friend.uID);
       this.participants.push(newParticipant);
       this.numMembers = this.participants.length;
       this.displayToAddMembers = false;
@@ -155,15 +155,15 @@ export class GroupItemsPage implements OnInit {
     this.description = 'This is a description too short but too cute';
     this.friends = new Array<Friend>();
     this.friends = [
-      {name: 'Fernanda',  UID: 'UIDFer'},
-      {name: 'Andrés',  UID: 'UIDAnd'},
-      {name: 'Daniel',  UID: 'UIDDan'},
-      {name: 'David',  UID: 'UIDDav'},
-      {name: 'Marlon',  UID: 'UIDMar'},
-      {name: 'Alejandro',  UID: 'UIDAle'},
-      {name: 'Edward',  UID: 'UIDEdw'},
-      {name: 'Carlos',  UID: 'UIDCar'},
-      {name: 'Johann',  UID: 'UIDJoh'},
+      {name: 'Fernanda',  uID: 'UIDFer'},
+      {name: 'Andrés',  uID: 'UIDAnd'},
+      {name: 'Daniel',  uID: 'UIDDan'},
+      {name: 'David',  uID: 'UIDDav'},
+      {name: 'Marlon',  uID: 'UIDMar'},
+      {name: 'Alejandro',  uID: 'UIDAle'},
+      {name: 'Edward',  uID: 'UIDEdw'},
+      {name: 'Carlos',  uID: 'UIDCar'},
+      {name: 'Johann',  uID: 'UIDJoh'},
     ];
 
     this.participants = new Array<Participant>();

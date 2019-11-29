@@ -47,13 +47,14 @@ export class UserService {
    * This sets user data to firestore in login
    * @param user This to get the autenticated user id
    */
-  updateUserData(user) {
+  updateUserData(user, nameUser: string) {
     const userRef = this.dataBase.doc<any>(`Users/${user.uid}`);
     const data: User = {
       uID: user.uid,
       email: user.email,
-      name: user.data,
-      friends: new Array<Friend>(),
+      name: nameUser,
+      // tslint:disable-next-line: max-line-length
+      friends: [{name: 'Daniel', uID: '1234'}, {name: 'David', uID: '2134'}, {name: 'Fernanda', uID: '3124'}, {name: 'Andres', uID: '4123'}],
       groups: new Array<Group>(),
       personalExpenses: new Array<PersonalExpense>(),
       phone: 0
