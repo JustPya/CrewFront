@@ -17,6 +17,7 @@ export class CreateGroupPage implements OnInit {
   private group: Group;
   private name: string;
   private description: string;
+  private date: Date;
   private countDescription = 0;
   private countName = 0;
 
@@ -27,12 +28,13 @@ export class CreateGroupPage implements OnInit {
     private groupService: GroupService) { }
 
   ngOnInit() {
+    this.date = new Date();
   }
   /*
   Method to open menu
   */
   openMenu() {
-    console.log('do some');
+    console.log('Open main menu');
     this.menu.open('first');
   }
   /*
@@ -40,7 +42,7 @@ export class CreateGroupPage implements OnInit {
   */
 
   navigateToGroups() {
-    this.group = new Group(this.name, this.description);
+    this.group = new Group(this.name, this.description, this.date);
     this.groupService.createGroup(this.group);
     this.router.navigateByUrl('tabs/groups');
   }

@@ -112,7 +112,7 @@ export class GroupItemsPage implements OnInit {
   }
 
   /**
-   * @var e: Expense to clone from table event method
+   * @param e: Expense to clone from table event method
    */
   cloneData(e: Expense): Expense {
     const exp = e;
@@ -128,7 +128,7 @@ export class GroupItemsPage implements OnInit {
   }
 
   /**
-   * @var i: Index of selected member to remove
+   * @param i: Index of selected member to remove
    */
   deleteMember(i: number) {
     this.participants.splice(i, 1);
@@ -139,7 +139,7 @@ export class GroupItemsPage implements OnInit {
   }
 
   /**
-   * @var i: Index of selected friend to add
+   * @param i: Index of selected friend to add
    */
   addMember(i: number) {
     const friend = this.friends[i];
@@ -166,7 +166,7 @@ export class GroupItemsPage implements OnInit {
     ).subscribe(data => {
       console.log(data);
       // Aca hay que asignar los datos al objeto local, ya se traen desde el servicio
-      this.group = new Group(data.name, data.description);
+      this.group = new Group(data.name, data.description, data.date);
     });
     this.cols = [
       { field: 'expense', header: 'Expense' },
