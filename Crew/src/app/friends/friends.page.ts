@@ -59,6 +59,7 @@ export class FriendsPage implements OnInit {
         text: 'ADD',
         handler: data => {
           if (data.username != null && data.username !== '') {
+            this.addFriend(data.username);
             this.friendName = data.username;
           } else {
             this.presentAlert();
@@ -69,6 +70,10 @@ export class FriendsPage implements OnInit {
     await alert.present();
   }
 
+
+  addFriend(user: string) {
+
+  }
   /*
     Method to delete friends
   */
