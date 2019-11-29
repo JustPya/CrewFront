@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Group } from '../models/Group';
 import { UserService } from '../services/user.service';
@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['groups.page.scss']
 })
 export class GroupsPage {
-  ids: Map<string, Group> = new Map();
+  ids: Map<Group, string> = new Map();
   groups: Group[] = [];
   constructor(
     private router: Router,
@@ -29,8 +29,8 @@ export class GroupsPage {
       data.map(a => {
         const id = a.payload.doc.id;
         const groupData = a.payload.doc.data() as Group;
-        this.ids.set(id, groupData);
         const group = new Group(groupData.name, groupData.description);
+        this.ids.set(group, id);
         this.groups.push(group);
       });
     });
@@ -43,8 +43,8 @@ export class GroupsPage {
     this.router.navigateByUrl('createGroup');
   }
 
-  navigateToGroup() {
-    this.router.navigateByUrl('group-items');
+  navigateToGroup(group: Group) {
+    this.router.navigate(['group-items', this.ids.get(group)]);
   }
 
 }

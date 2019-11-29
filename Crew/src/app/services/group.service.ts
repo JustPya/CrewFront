@@ -32,7 +32,7 @@ export class GroupService {
     return this.firestore.collection('Group').snapshotChanges();
   }
   readGroup(recordId) {
-    this.firestore.doc('Group/' + recordId).snapshotChanges();
+    return this.firestore.doc<Group>('Group/' + recordId).valueChanges();
   }
 
   updateGroup(recordID, record) {

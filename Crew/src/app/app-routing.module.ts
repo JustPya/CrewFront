@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'friends', loadChildren: './friends/friends.module#FriendsPageModule', canActivate: [AuthGuard] },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [NoAuthGuard]},
-  { path: 'group-items', loadChildren: './group-items/group-items.module#GroupItemsPageModule', canActivate: [AuthGuard]},
+  { path: 'group-items/:id', loadChildren: './group-items/group-items.module#GroupItemsPageModule', canActivate: [AuthGuard]},
   { path: 'createGroup', loadChildren: './create-group/create-group.module#CreateGroupPageModule', canActivate: [AuthGuard] }
 ];
 
