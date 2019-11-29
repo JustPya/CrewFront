@@ -12,11 +12,10 @@ import { firestore } from 'firebase';
 })
 export class UserService {
 
-
+  globalUser: User;
   currentUser: Observable<User>;
   constructor(
     private AFauth: AngularFireAuth,
-    private firestore: AngularFirestore,
     private dataBase: AngularFirestore) {
     this.currentUser = this.AFauth.authState.pipe(
       switchMap(user => {
@@ -27,22 +26,25 @@ export class UserService {
         }
       })
     );
+    this.currentUser.subscribe(data => {
+      this.globalUser = data;
+    });
   }
   /** CRUD for User section
    * recordId: User Id being modified
    * record: User data that will reeplaze recordId document
    */
   createUser(recordId) {
-    return this.firestore.collection('Users').add(JSON.parse(JSON.stringify(recordId)));
+    return this.dataBase.collection('Users').add(JSON.parse(JSON.stringify(recordId)));
   }
   readUser() {
-    return this.firestore.collection('Users').snapshotChanges();
+    return this.dataBase.collection('Users').snapshotChanges();
   }
   updateUser(recordID, record) {
-    this.firestore.doc('Users/' + recordID).update(JSON.parse(JSON.stringify(record)));
+    this.dataBase.doc('Users/' + recordID).update(JSON.parse(JSON.stringify(record)));
   }
   deleteUser(recordId) {
-    this.firestore.doc('Users/' + recordId).delete();
+    this.dataBase.doc('Users/' + recordId).delete();
   }
   /**
    * This sets user data to firestore in login
@@ -71,16 +73,16 @@ export class UserService {
    * record: Friend data that will reeplaze recordId document
    */
   createFriend(recordId, record) {
-    return this.firestore.collection('Users/' + recordId + '/Friends').add(JSON.parse(JSON.stringify(record)));
+    return this.dataBase.collection('Users/' + recordId + '/Friends').add(JSON.parse(JSON.stringify(record)));
   }
   readFriend(userId, recordId) {
-    return this.firestore.doc('Users/' + userId + '/Friends/' + recordId).snapshotChanges();
+    return this.dataBase.doc('Users/' + userId + '/Friends/' + recordId).snapshotChanges();
   }
   updateFriend(userId, recordId, record) {
-    this.firestore.doc('Users/' + userId + '/Friends' + recordId).update(JSON.parse(JSON.stringify(record)));
+    this.dataBase.doc('Users/' + userId + '/Friends' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
   deleteFriend(userId, friend) {
-    this.firestore.doc('Users/' + userId).update({
+    this.dataBase.doc('Users/' + userId).update({
       friends: firestore.FieldValue.arrayRemove(friend)
     });
   }
@@ -91,15 +93,15 @@ export class UserService {
    * record: Expense data that will reeplaze recordId document
    */
   createExpense(record, recordId) {
-    return this.firestore.collection('Users/' + recordId + '/Expenses').add(JSON.parse(JSON.stringify(record)));
+    return this.dataBase.collection('Users/' + recordId + '/Expenses').add(JSON.parse(JSON.stringify(record)));
   }
   readExpense(userId, recordId) {
-    return this.firestore.collection('Users/' + userId + '/Expenses/' + recordId).snapshotChanges();
+    return this.dataBase.collection('Users/' + userId + '/Expenses/' + recordId).snapshotChanges();
   }
   updateExpense(userId, recordId, record) {
-    this.firestore.doc('Users/' + userId + '/Expenses' + recordId).update(JSON.parse(JSON.stringify(record)));
+    this.dataBase.doc('Users/' + userId + '/Expenses' + recordId).update(JSON.parse(JSON.stringify(record)));
   }
   deleteExpense(userId, recordId) {
-    this.firestore.doc('Users/' + userId + '/Expenses' + recordId.delete());
+    this.dataBase.doc('Users/' + userId + '/Expenses' + recordId.delete());
   }
 }
