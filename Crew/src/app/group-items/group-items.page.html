@@ -108,7 +108,7 @@
       <ion-item *ngIf="member" >
         <ion-label>
           <h2><b>{{member.name}}</b></h2>
-          <h3>Presupuesto: {{member.budget | currency: "USD":"symbol":"1.0-0"}}</h3>
+          <h3>Pending balance: {{member.budget | currency: "USD":"symbol":"1.0-0"}}</h3>
         </ion-label>
         <ion-icon name="close-circle" color='primary' (click)='deleteMember(i)'></ion-icon>
       </ion-item>
