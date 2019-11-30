@@ -209,7 +209,6 @@ export class GroupItemsPage implements OnInit {
     this.groupService.updateGroup(this.id, this.group);
   }
   ngOnInit() {
-    this.total = 0;
     this.friends = new Array<Friend>();
     this.participants = new Array<Participant>();
     this.expenses = new Array<Expense>();
@@ -223,6 +222,7 @@ export class GroupItemsPage implements OnInit {
       )
     ).subscribe(data => {
       /*Aca hay que asignar los datos al objeto local, ya se traen desde el servicio*/
+      this.total = 0;
       this.group = new Group(data.name, data.description, data.date, data.participants);
       this.group.expenses = data.expenses;
       this.group.participants = data.participants;
@@ -231,6 +231,9 @@ export class GroupItemsPage implements OnInit {
       this.expenses = this.group.expenses;
       this.participants = this.group.participants;
       this.numMembers = this.participants.length;
+      this.group.expenses.forEach(expense => {
+        this.total += expense.amount;
+      });
     });
     // this.getTotal();
     this.cols = [
