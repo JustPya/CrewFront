@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
 import { Friend, User } from '../models/User';
 import { UserService } from '../services/user.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-friends',
@@ -36,6 +34,7 @@ export class FriendsPage implements OnInit {
     this.userService.currentUser.subscribe(data => {
       this.currentUser = data;
       this.friends = data.friends;
+      console.log(this.friends);
     });
   }
   /*
@@ -72,7 +71,7 @@ export class FriendsPage implements OnInit {
 
 
   addFriend(user: string) {
-
+    this.userService.createFriend(user);
   }
   /*
     Method to delete friends
@@ -90,9 +89,4 @@ export class FriendsPage implements OnInit {
       Insert search method
     */
   }
-
-
-
-
-
 }

@@ -30,16 +30,13 @@ export class GroupsPage {
       data.map(a => {
         const id = a.payload.doc.id;
         const groupData = a.payload.doc.data() as Group;
-        const group = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
-        this.ids.set(group, id);
-        this.groups.push(group);
         if (groupData.participants) {
           groupData.participants.forEach(participant => {
             console.log(participant);
             if (participant.uID === userService.globalUser.uID) {
-              const group = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
-              this.ids.set(group, id);
-              this.groups.push(group);
+              const item = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
+              this.ids.set(item, id);
+              this.groups.push(item);
             }
           });
         }
@@ -55,6 +52,7 @@ export class GroupsPage {
   }
 
   navigateToGroup(group: Group) {
+    console.log(this.ids.get(group));
     this.router.navigate(['group-items', this.ids.get(group)]);
   }
 
