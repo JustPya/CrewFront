@@ -72,14 +72,20 @@ export class UserService {
    * recordId: Friend Id being modified
    * record: Friend data that will reeplaze recordId document
    */
-  createFriend(recordId, record) {
-    return this.dataBase.collection('Users');
+  createFriend(friendEmail: string) {
+    return this.dataBase.collection<User>('Users').valueChanges().subscribe( data => {
+      data.forEach(element => {
+        if ( element.email === friendEmail) {
+          this.globalUser.friends.push({name: element.name, uID: element.uID});
+        }
+      });
+    });
   }
   readFriend(userId, recordId) {
     return this.dataBase.doc('Users/' + userId + '/Friends/' + recordId).snapshotChanges();
   }
-  updateFriend(userId, recordId, record) {
-    this.dataBase.doc('Users/' + userId + '/Friends' + recordId).update(JSON.parse(JSON.stringify(record)));
+  updateFriend(userId, record) {
+    this.dataBase.doc('Users/' + userId).update(record);
   }
   deleteFriend(userId, friend) {
     this.dataBase.doc('Users/' + userId).update({

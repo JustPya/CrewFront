@@ -71,8 +71,10 @@ export class FriendsPage implements OnInit {
   }
 
 
-  addFriend(user: string) {
-
+  async addFriend(user: string) {
+    this.userService.createFriend(user);
+    // Arreglar que no sea por suscribe
+    await this.userService.updateFriend(this.userService.globalUser.uID, this.userService.globalUser);
   }
   /*
     Method to delete friends
@@ -90,9 +92,4 @@ export class FriendsPage implements OnInit {
       Insert search method
     */
   }
-
-
-
-
-
 }

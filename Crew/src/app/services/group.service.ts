@@ -28,15 +28,12 @@ export class GroupService {
   readGroup(recordId) {
     return this.firestore.doc<Group>('Group/' + recordId).valueChanges();
   }
-
   updateGroup(recordID, record) {
     this.firestore.doc('Group/' + recordID).update(JSON.parse(JSON.stringify(record)));
   }
-
   deleteGroup(record) {
     this.firestore.doc('Group/' + record).delete();
   }
-
   /** CRUD for participant section
    * groupId: Group Id being modified
    * recordId: Participant Id being modified
