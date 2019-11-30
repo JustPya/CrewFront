@@ -1,14 +1,10 @@
-<ion-content>
-    <ion-card class="card-head">
-        <ion-card-title>Cash</ion-card-title>
-        <ion-card class="cash">
-            <label for="saldo">COP 100.000</label>
-        </ion-card>
-    </ion-card>
-    <ion-card class="card">
-        <ion-card-title>Estructura de Gastos</ion-card-title>
-        <label class="titles" for="cash">Toal COP 3.000</label>
-    </ion-card>
+<ion-content> 
+    
+    <ion-item class='idItem'>
+        <ion-label color='secondary' (click)='showDialogListExpenses()'>Expenses List </ion-label>
+        <ion-badge slot='end' color='secondary'>{{numExpenses}}</ion-badge>
+    </ion-item>
+
     <ion-card class="card">
         <ion-card-title>Debito</ion-card-title>
         <ion-card class="card-second" color="primary">
@@ -23,9 +19,20 @@
     </ion-card>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button>
+        <ion-fab-button (click)='showDialogToAdd()'>
             <ion-icon name="create"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 
+    <ion-card>
+        <p-chart type="doughnut" [data]="data"></p-chart>
+    </ion-card>
+
+    <p-dialog header="Personal Expenses" [(visible)]='displayExpenses'>
+            
+    </p-dialog>
+    <!--Open dialog expenses list-->
+    <p-dialog header="Personal Expenses" [(visible)]='displayExpensesList'>
+            
+    </p-dialog>
 </ion-content>
