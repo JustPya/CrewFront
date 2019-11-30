@@ -6,18 +6,20 @@
     </ion-item>
 
     <ion-card class="card">
-        <ion-card class="card-second" color="primary" *ngFor="let item of groups">
-            <label for="saldo">{{item.name}}</label>
+        <ion-card-title>Debts</ion-card-title>
+        <ion-card class="card-second" color="warning" *ngFor="let item of groups">
+            <ion-card-subtitle for="saldo">{{item.name}}</ion-card-subtitle>
             <div *ngFor="let participant of item.participants">
-                <label for="saldo" *ngIf="participant.uID === user.uID">{{participant.budget}}</label>
+                <label for="saldo" *ngIf="participant.uID === user.uID">{{participant.budget | currency: "USD":"symbol":"1.0-0"}}</label>
             </div>
         </ion-card>
     </ion-card>
 
     <ion-label>{{totalGroupExpenses}}</ion-label>
     <!--Chart-->
-    <ion-card>
-        <p-chart type="doughnut" [data]="data"></p-chart>
+    <ion-card class="card">
+        <ion-card-title>Expenses Structure</ion-card-title>
+        <p-chart type="doughnut" [data]="data"></p-chart> 
     </ion-card>
 
     <!--Open dialog add expenses-->

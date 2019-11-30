@@ -127,6 +127,7 @@ export class GroupItemsPage implements OnInit {
       this.updateGroupDB(this.participants, this.expenses);
     }
     this.getTotal();
+    this.updateParticipantsAmount();
   }
 
   /**

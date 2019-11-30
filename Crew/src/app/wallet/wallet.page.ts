@@ -21,7 +21,6 @@ export class WalletPage implements OnInit {
   groupsE: number;
   personalExpenses: Array<PersonalExpense>;
   groups: Group[];
-  totalGroupExpenses: number;
 
   displayExpenses = false;
   displayExpensesList = false;
@@ -75,7 +74,7 @@ export class WalletPage implements OnInit {
     this.personalExpenses.forEach(f => {
       this.pExpenses += f.amount;
     });
-    this.drawChart(this.pExpenses, 20, 10);
+    this.drawChart(this.pExpenses, this.groupsE, 10);
   }
 
   /**
@@ -83,19 +82,17 @@ export class WalletPage implements OnInit {
    */
   drawChart(a: number, b: number, c: number) {
     this.data = {
-      labels: ['P. Expenses', 'Groups E', 'C'],
+      labels: ['P. Expenses', 'Groups E'],
       datasets: [
           {
-              data: [a, b, c],
+              data: [a, b],
               backgroundColor: [
                   '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
+                  '#36A2EB'
               ],
               hoverBackgroundColor: [
                   '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
+                  '#36A2EB'
               ]
           }]
       };
@@ -143,11 +140,12 @@ export class WalletPage implements OnInit {
               this.groups.push(item);
             }
           });
-          this.totalGroupExpenses = 0;
+          this.groupsE = 0;
           this.groups.forEach(groupItem => {
             groupItem.participants.forEach(item => {
               if (item.uID === this.userService.globalUser.uID) {
-                this.totalGroupExpenses += item.budget;
+                this.groupsE += item.budget;
+                this.updateChart();
               }
             });
           });
