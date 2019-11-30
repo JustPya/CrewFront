@@ -84,18 +84,18 @@ export class WalletPage implements OnInit {
     this.data = {
       labels: ['P. Expenses', 'Groups E'],
       datasets: [
-          {
-              data: [a, b],
-              backgroundColor: [
-                  '#FF6384',
-                  '#36A2EB'
-              ],
-              hoverBackgroundColor: [
-                  '#FF6384',
-                  '#36A2EB'
-              ]
-          }]
-      };
+        {
+          data: [a, b],
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB'
+          ],
+          hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB'
+          ]
+        }]
+    };
   }
 
   /**
@@ -145,10 +145,10 @@ export class WalletPage implements OnInit {
             groupItem.participants.forEach(item => {
               if (item.uID === this.userService.globalUser.uID) {
                 this.groupsE += item.budget;
-                this.updateChart();
               }
             });
           });
+          this.updateChart();
         }
       });
     });
