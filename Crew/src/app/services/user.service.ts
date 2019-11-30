@@ -73,12 +73,14 @@ export class UserService {
    * record: Friend data that will reeplaze recordId document
    */
   createFriend(friendEmail: string) {
-    return this.dataBase.collection<User>('Users').valueChanges().subscribe( data => {
-      data.forEach(element => {
-        if ( element.email === friendEmail) {
-          this.globalUser.friends.push({name: element.name, uID: element.uID});
-        }
+    this.dataBase.firestore.collection('Users').where( 'email', '==', friendEmail).get().then( data => {
+      console.log(JSON.parse(JSON.stringify(data.docs[0].data())));
+      this.globalUser.friends.forEach(friend => {
+        // if (friend.uID == JSON.parse(JSON.stringify(data.docs[0].data())))
       });
+      this.globalUser.friends.push(JSON.parse(JSON.stringify(data.docs[0].data())));
+      console.log(this.globalUser.friends);
+      this.updateFriend(this.globalUser.uID, this.globalUser);
     });
   }
   readFriend(userId, recordId) {

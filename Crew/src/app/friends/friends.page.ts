@@ -36,6 +36,7 @@ export class FriendsPage implements OnInit {
     this.userService.currentUser.subscribe(data => {
       this.currentUser = data;
       this.friends = data.friends;
+      console.log(this.friends);
     });
   }
   /*
@@ -71,10 +72,8 @@ export class FriendsPage implements OnInit {
   }
 
 
-  async addFriend(user: string) {
+  addFriend(user: string) {
     this.userService.createFriend(user);
-    // Arreglar que no sea por suscribe
-    await this.userService.updateFriend(this.userService.globalUser.uID, this.userService.globalUser);
   }
   /*
     Method to delete friends

@@ -35,9 +35,9 @@ export class GroupsPage {
           groupData.participants.forEach(participant => {
             console.log(participant);
             if (participant.uID === userService.globalUser.uID) {
-              const group = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
+              const item = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
               this.ids.set(group, id);
-              this.groups.push(group);
+              this.groups.push(item);
             }
           });
         }
