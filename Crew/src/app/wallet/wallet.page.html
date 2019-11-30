@@ -1,14 +1,10 @@
-<ion-content>
-    <ion-card class="card-head">
-        <ion-card-title>Cash</ion-card-title>
-        <ion-card class="cash">
-            <label for="saldo">COP 100.000</label>
-        </ion-card>
-    </ion-card>
-    <ion-card class="card">
-        <ion-card-title>Estructura de Gastos</ion-card-title>
-        <label class="titles" for="cash">Toal COP 3.000</label>
-    </ion-card>
+<ion-content> 
+    
+    <ion-item class='idItem'>
+        <ion-label color='secondary' (click)='showDialogListExpenses()'>Expenses List </ion-label>
+        <ion-badge slot='end' color='secondary'>{{numExpenses}}</ion-badge>
+    </ion-item>
+
     <ion-card class="card">
         <ion-card-title>Debito</ion-card-title>
         <ion-card class="card-second" color="primary">
@@ -22,10 +18,45 @@
         </ion-card>
     </ion-card>
 
+    
+    <!--Chart-->
+    <ion-card>
+        <p-chart type="doughnut" [data]="data"></p-chart>
+    </ion-card>
+    
+    <!--Open dialog add expenses-->
+    <p-dialog header="Personal Expenses" [(visible)]='displayExpenses'>
+        <ion-list>
+            <ion-item>
+                <ion-label position="stacked">Name<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" [(ngModel)]="exp.object" name="expName" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Amount<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="number" [(ngModel)]="exp.amount" name="expAmount" required></ion-input>
+            </ion-item>
+        </ion-list>
+        <div class="button">
+            <ion-button slot='end' size='small' color='primary' (click)='saveExpense()'>Save</ion-button>
+        </div> 
+        
+    </p-dialog>
+    <!--Open dialog expenses list-->
+    <p-dialog header="Expenses List" [(visible)]='displayExpensesList'>
+        <ion-list *ngFor='let item of personalExpenses; index as i'> 
+            <ion-item *ngIf="item" >
+                <ion-label>
+                    <h2><b>{{item.object}}</b></h2>
+                    <h3>Amount: {{item.amount}}</h3>
+                </ion-label>
+                <ion-icon name="close-circle" color='primary' (click)='deleteExpense(i)'></ion-icon>
+            </ion-item>
+        </ion-list>  
+    </p-dialog>
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button>
+        <ion-fab-button (click)='showDialogToAdd()'>
             <ion-icon name="create"></ion-icon>
         </ion-fab-button>
     </ion-fab>
-
 </ion-content>

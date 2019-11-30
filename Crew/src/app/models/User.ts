@@ -16,7 +16,6 @@ export class User {
 
 export class PersonalExpense {
   object: string;
-  type: string;
   amount: number;
 }
 export class Friend {
