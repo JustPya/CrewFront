@@ -74,6 +74,7 @@ export class LoginPage implements OnInit {
 
   async nativeGoogleLogin(): Promise<void> {
     try {
+      this.hideLoader();
       const gplusUser = await this.gplus.login({
         webClientId:
           '801441567235-llsbqsmnkri0hklb6587v0oqpqcagr6v.apps.googleusercontent.com',
@@ -83,6 +84,7 @@ export class LoginPage implements OnInit {
 
       return await this.authService.loginWithCredentials(gplusUser.idToken);
     } catch (err) {
+      this.hideLoader();
       console.log(err);
     }
   }
