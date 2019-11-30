@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User, PersonalExpense } from '../models/User';
+import { Group } from '../models/Group';
+import { GroupService } from '../services/group.service';
+import { group } from '@angular/animations';
 
 
 @Component({
@@ -8,35 +11,39 @@ import { User, PersonalExpense } from '../models/User';
   templateUrl: 'wallet.page.html',
   styleUrls: ['wallet.page.scss']
 })
-export class WalletPage {
+export class WalletPage implements OnInit {
 
   data: any;
   user: User;
   numExpenses: number;
   exp: PersonalExpense;
   personalExpenses: Array<PersonalExpense>;
+  groups: Group[];
+  totalGroupExpenses: number;
 
   displayExpenses = false;
   displayExpensesList = false;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private groupService: GroupService) {
     this.data = {
       labels: ['A', 'B', 'C'],
       datasets: [
-          {
-              data: [0, 0, 10],
-              backgroundColor: [
-                  '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
-              ],
-              hoverBackgroundColor: [
-                  '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
-              ]
-          }]
-      };
+        {
+          data: [0, 0, 10],
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+          ],
+          hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+          ]
+        }]
+    };
   }
 
   showDialogToAdd() {
@@ -87,8 +94,27 @@ export class WalletPage {
     this.exp = new PersonalExpense();
     console.log(this.personalExpenses);
 
-    //this.user = this.userService.globalUser;
-   // console.log(this.user);
+    this.groupService.readGroupsByUser().subscribe(data => {
+      this.groups = [];
+      data.map(a => {
+        const groupData = a.payload.doc.data() as Group;
+        if (groupData.participants) {
+          groupData.participants.forEach(participant => {
+            if (participant.uID === this.userService.globalUser.uID) {
+              const item = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
+              this.groups.push(item);
+            }
+          });
+          this.totalGroupExpenses = 0;
+          this.groups.forEach(groupItem => {
+            groupItem.participants.forEach(item => {
+              if (item.uID === this.userService.globalUser.uID) {
+                this.totalGroupExpenses += item.budget;
+              }
+            });
+          });
+        }
+      });
+    });
   }
-
 }
