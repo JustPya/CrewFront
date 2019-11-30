@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
 import { Friend, User } from '../models/User';
 import { UserService } from '../services/user.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-friends',

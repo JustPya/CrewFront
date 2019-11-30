@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { User, PersonalExpense } from '../models/User';
+import { User, PersonalExpense, Friend } from '../models/User';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Group } from '../models/Group';
@@ -56,9 +56,7 @@ export class UserService {
       uID: user.uid,
       email: user.email,
       name: nameUser,
-      friends:
-        [{ name: 'Daniel', uID: '1234' }, { name: 'David', uID: '2134' },
-        { name: 'Fernanda', uID: '3124' }, { name: 'Andres', uID: '4123' }],
+      friends: new Array<Friend>(),
       groups: new Array<Group>(),
       personalExpenses: new Array<PersonalExpense>(),
       phone: 0
@@ -73,13 +71,15 @@ export class UserService {
    * record: Friend data that will reeplaze recordId document
    */
   createFriend(friendEmail: string) {
-    this.dataBase.firestore.collection('Users').where( 'email', '==', friendEmail).get().then( data => {
-      console.log(JSON.parse(JSON.stringify(data.docs[0].data())));
+    this.dataBase.firestore.collection('Users').where('email', '==', friendEmail).get().then(data => {
+      // console.log(JSON.parse(JSON.stringify(data.docs[0].data())));
       this.globalUser.friends.forEach(friend => {
-        // if (friend.uID == JSON.parse(JSON.stringify(data.docs[0].data())))
+        if (friend.uID === data.docs[0].data().uID) {
+          return;
+        }
+        const info = data.docs[0].data();
+        this.globalUser.friends.push({name: info.name, uID: info.uID });
       });
-      this.globalUser.friends.push(JSON.parse(JSON.stringify(data.docs[0].data())));
-      console.log(this.globalUser.friends);
       this.updateFriend(this.globalUser.uID, this.globalUser);
     });
   }
