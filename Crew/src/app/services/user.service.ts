@@ -61,8 +61,12 @@ export class UserService {
       personalExpenses: new Array<PersonalExpense>(),
       phone: 0
     };
-    console.log(data);
-    return userRef.set(data, { merge: true });
+    userRef.get().subscribe(res => {
+      if (!res.data()) {
+        return userRef.set(data, { merge: true });
+      }
+    });
+    return;
   }
 
   /** CRUD for Friend section
