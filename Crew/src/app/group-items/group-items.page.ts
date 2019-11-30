@@ -89,6 +89,9 @@ export class GroupItemsPage implements OnInit {
     this.displayExpenses = false;
     console.log(this.expenses);
     this.selectedExp = new Expense();
+    this.getTotal();
+    this.updateParticipantsAmount();
+
   }
   /**
    * Remove expense
@@ -99,6 +102,9 @@ export class GroupItemsPage implements OnInit {
     this.expenses.splice(indexExpense, 1);
     this.displayExpenses = false;
     this.updateGroupDB(this.participants, this.expenses);
+    this.getTotal();
+    this.updateParticipantsAmount();
+
   }
 
   /**
@@ -118,6 +124,7 @@ export class GroupItemsPage implements OnInit {
       this.displayToAddExpenses = false;
       this.updateGroupDB(this.participants, this.expenses);
     }
+    this.getTotal();
   }
 
   /**
@@ -146,6 +153,8 @@ export class GroupItemsPage implements OnInit {
     });
     this.updateGroupDB(this.participants, this.expenses);
     this.numMembers = this.participants.length;
+    this.updateParticipantsAmount();
+
   }
 
   /**
@@ -165,6 +174,7 @@ export class GroupItemsPage implements OnInit {
       });
       this.updateGroupDB(this.participants, this.expenses);
     }
+    this.updateParticipantsAmount();
   }
   /**
    * Update group DB by ID
@@ -176,6 +186,7 @@ export class GroupItemsPage implements OnInit {
   }
 
   getTotal() {
+    this.total = 0;
     this.expenses.forEach(expense => {
       this.total += expense.amount;
     });
@@ -197,15 +208,6 @@ export class GroupItemsPage implements OnInit {
     this.group.participants = this.participants;
     this.groupService.updateGroup(this.id, this.group);
   }
-  updateParticipantsDebt() {
-    this.expenses.forEach(expense => {
-      expense.deb.forEach(element => {
-
-      });
-    });
-    this.group.participants = this.participants;
-    this.groupService.updateGroup(this.id, this.group);
-  }
   ngOnInit() {
     this.friends = new Array<Friend>();
     this.participants = new Array<Participant>();
@@ -214,15 +216,14 @@ export class GroupItemsPage implements OnInit {
     this.selectedExp = new Expense();
     this.updateExp = new Expense();
     this.id = this.router.snapshot.paramMap.get('id');
-
     this.router.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.groupService.readGroup(params.get('id'))
       )
     ).subscribe(data => {
       /*Aca hay que asignar los datos al objeto local, ya se traen desde el servicio*/
-      this.group = new Group(data.name, data.description, data.date, data.participants);
       this.total = 0;
+      this.group = new Group(data.name, data.description, data.date, data.participants);
       this.group.expenses = data.expenses;
       this.group.participants = data.participants;
       this.description = this.group.description;
@@ -230,11 +231,11 @@ export class GroupItemsPage implements OnInit {
       this.expenses = this.group.expenses;
       this.participants = this.group.participants;
       this.numMembers = this.participants.length;
-      this.getTotal();
-      this.updateParticipantsAmount();
-      this.updateParticipantsDebt();
-
+      this.group.expenses.forEach(expense => {
+        this.total += expense.amount;
+      });
     });
+    // this.getTotal();
     this.cols = [
       { field: 'expense', header: 'Expense' },
       { field: 'amount', header: 'Amount' }

@@ -32,7 +32,6 @@ export class GroupsPage {
         const groupData = a.payload.doc.data() as Group;
         if (groupData.participants) {
           groupData.participants.forEach(participant => {
-            console.log(participant);
             if (participant.uID === userService.globalUser.uID) {
               const item = new Group(groupData.name, groupData.description, groupData.date, groupData.participants);
               this.ids.set(item, id);
