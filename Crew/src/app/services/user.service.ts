@@ -72,15 +72,20 @@ export class UserService {
    */
   createFriend(friendEmail: string) {
     this.dataBase.firestore.collection('Users').where('email', '==', friendEmail).get().then(data => {
-      // console.log(JSON.parse(JSON.stringify(data.docs[0].data())));
-      this.globalUser.friends.forEach(friend => {
-        if (friend.uID === data.docs[0].data().uID) {
-          return;
-        }
+      if (this.globalUser.friends.length > 0) {
+        this.globalUser.friends.forEach(friend => {
+          if (friend.uID === data.docs[0].data().uID) {
+            return;
+          }
+          const info = data.docs[0].data();
+          this.globalUser.friends.push({ name: info.name, uID: info.uID });
+          this.updateFriend(this.globalUser.uID, this.globalUser);
+        });
+      } else {
         const info = data.docs[0].data();
-        this.globalUser.friends.push({name: info.name, uID: info.uID });
-      });
-      this.updateFriend(this.globalUser.uID, this.globalUser);
+        this.globalUser.friends.push({ name: info.name, uID: info.uID });
+        this.updateFriend(this.globalUser.uID, this.globalUser);
+      }
     });
   }
   readFriend(userId, recordId) {
