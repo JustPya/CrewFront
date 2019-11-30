@@ -17,6 +17,7 @@ export class GroupItemsPage implements OnInit {
 
   group: Group;
   currentUser: User;
+  id: string;
 
   displayToAddMembers = false;
   displayToAddExpenses = false;
@@ -24,6 +25,7 @@ export class GroupItemsPage implements OnInit {
   displayMembersList = false;
 
   description: string;
+  groupName: string;
   numMembers: number;
   total: number;
   cols: any[];
@@ -82,6 +84,7 @@ export class GroupItemsPage implements OnInit {
     console.log(indexExpense);
     if (indexExpense !== -1) {
       this.expenses[indexExpense] = this.selectedExp;
+      this.updateGroupDB(this.participants, this.expenses);
     }
     this.displayExpenses = false;
     console.log(this.expenses);
@@ -95,6 +98,7 @@ export class GroupItemsPage implements OnInit {
     console.log(indexExpense);
     this.expenses.splice(indexExpense, 1);
     this.displayExpenses = false;
+    this.updateGroupDB(this.participants, this.expenses);
   }
 
   /**
@@ -106,11 +110,13 @@ export class GroupItemsPage implements OnInit {
       this.deb = new Debtor(f.name, f.uID);
       this.exp.deb.push(this.deb);
     });
+    console.log(this.expenses);
     const duplicateExp = this.expenses.findIndex(f => f.name.toLocaleLowerCase() == this.exp.name.toLocaleLowerCase());
     if (duplicateExp === -1) {
       this.expenses.push(this.exp);
       this.exp = new Expense();
       this.displayToAddExpenses = false;
+      this.updateGroupDB(this.participants, this.expenses);
     }
   }
 
@@ -138,6 +144,7 @@ export class GroupItemsPage implements OnInit {
     this.expenses.forEach(f => {
       f.deb.splice(i, 1);
     });
+    this.updateGroupDB(this.participants, this.expenses);
     this.numMembers = this.participants.length;
   }
 
@@ -156,40 +163,54 @@ export class GroupItemsPage implements OnInit {
       this.expenses.forEach(f => {
         f.deb.push(newDeb);
       });
+      this.updateGroupDB(this.participants, this.expenses);
     }
+  }
+  /**
+   * Update group DB by ID
+   */
+  updateGroupDB(par: Array<Participant>, exp: Array<Expense>) {
+    this.group.participants = par;
+    this.group.expenses = exp;
+    this.groupService.updateGroup(this.id, this.group);
   }
 
   ngOnInit() {
-    this.router.snapshot.paramMap.get('id');
+    this.friends = new Array<Friend>();
+    this.participants = new Array<Participant>();
+    this.expenses = new Array<Expense>();
+    this.exp = new Expense();
+    this.selectedExp = new Expense();
+    this.updateExp = new Expense();
+    this.total = 0;
+    this.id = this.router.snapshot.paramMap.get('id');
 
     this.router.paramMap.pipe(
       switchMap((params: ParamMap) =>
-       this.groupService.readGroup(params.get('id'))
+      this.groupService.readGroup(params.get('id'))
       )
-    ).subscribe(data => {
-      console.log(data);
-      // Aca hay que asignar los datos al objeto local, ya se traen desde el servicio
-      this.group = new Group(data.name, data.description, data.date, data.participants);
+      ).subscribe(data => {
+        console.log(data);
+        /*Aca hay que asignar los datos al objeto local, ya se traen desde el servicio*/
+        this.group = new Group(data.name, data.description, data.date, data.participants);
+        this.group.expenses = data.expenses;
+        this.group.participants = data.participants;
+
+        this.description = this.group.description;
+        this.groupName = this.group.name;
+        this.expenses = this.group.expenses;
+        this.participants = this.group.participants;
+        this.numMembers = this.participants.length;
     });
 
     this.cols = [
       { field: 'expense', header: 'Expense' },
       { field: 'amount', header: 'Amount' }
     ];
-    this.description = 'This is a description too short but too cute';
-    this.friends = new Array<Friend>();
-    this.participants = new Array<Participant>();
 
     this.userService.currentUser.subscribe(data => {
       this.currentUser = data;
       this.friends = data.friends;
     });
-
-    this.expenses = new Array<Expense>();
-    this.exp = new Expense();
-    this.selectedExp = new Expense();
-    this.updateExp = new Expense();
-    this.numMembers = this.participants.length;
-    this.total = 0;
   }
 }
