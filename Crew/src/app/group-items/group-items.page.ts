@@ -175,6 +175,37 @@ export class GroupItemsPage implements OnInit {
     this.groupService.updateGroup(this.id, this.group);
   }
 
+  getTotal() {
+    this.expenses.forEach(expense => {
+      this.total += expense.amount;
+    });
+    this.group.total = this.total;
+    this.groupService.updateGroup(this.id, this.group);
+  }
+  updateParticipantsAmount() {
+    this.participants.forEach(participant => {
+      let amount = this.total / this.participants.length;
+      this.expenses.forEach(expense => {
+        expense.deb.forEach(element => {
+          if (element.uID === participant.uID) {
+            amount -= element.amount;
+          }
+        });
+        participant.budget = amount;
+      });
+    });
+    this.group.participants = this.participants;
+    this.groupService.updateGroup(this.id, this.group);
+  }
+  updateParticipantsDebt() {
+    this.expenses.forEach(expense => {
+      expense.deb.forEach(element => {
+
+      });
+    });
+    this.group.participants = this.participants;
+    this.groupService.updateGroup(this.id, this.group);
+  }
   ngOnInit() {
     this.friends = new Array<Friend>();
     this.participants = new Array<Participant>();
@@ -182,27 +213,28 @@ export class GroupItemsPage implements OnInit {
     this.exp = new Expense();
     this.selectedExp = new Expense();
     this.updateExp = new Expense();
-    this.total = 0;
     this.id = this.router.snapshot.paramMap.get('id');
 
     this.router.paramMap.pipe(
       switchMap((params: ParamMap) =>
-      this.groupService.readGroup(params.get('id'))
+        this.groupService.readGroup(params.get('id'))
       )
-      ).subscribe(data => {
-        console.log(data);
-        /*Aca hay que asignar los datos al objeto local, ya se traen desde el servicio*/
-        this.group = new Group(data.name, data.description, data.date, data.participants);
-        this.group.expenses = data.expenses;
-        this.group.participants = data.participants;
+    ).subscribe(data => {
+      /*Aca hay que asignar los datos al objeto local, ya se traen desde el servicio*/
+      this.group = new Group(data.name, data.description, data.date, data.participants);
+      this.total = 0;
+      this.group.expenses = data.expenses;
+      this.group.participants = data.participants;
+      this.description = this.group.description;
+      this.groupName = this.group.name;
+      this.expenses = this.group.expenses;
+      this.participants = this.group.participants;
+      this.numMembers = this.participants.length;
+      this.getTotal();
+      this.updateParticipantsAmount();
+      this.updateParticipantsDebt();
 
-        this.description = this.group.description;
-        this.groupName = this.group.name;
-        this.expenses = this.group.expenses;
-        this.participants = this.group.participants;
-        this.numMembers = this.participants.length;
     });
-
     this.cols = [
       { field: 'expense', header: 'Expense' },
       { field: 'amount', header: 'Amount' }

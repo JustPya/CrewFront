@@ -88,9 +88,6 @@ export class UserService {
       }
     });
   }
-  readFriend(userId, recordId) {
-    return this.dataBase.doc('Users/' + userId + '/Friends/' + recordId).snapshotChanges();
-  }
   updateFriend(userId, record) {
     this.dataBase.doc('Users/' + userId).update(record);
   }
