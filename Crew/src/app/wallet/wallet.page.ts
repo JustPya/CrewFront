@@ -72,7 +72,7 @@ export class WalletPage implements OnInit {
    */
   updateChart() {
     this.pExpenses = 0;
-    this.personalExpenses.forEach(f =>{
+    this.personalExpenses.forEach(f => {
       this.pExpenses += f.amount;
     });
     this.drawChart(this.pExpenses, 20, 10);
