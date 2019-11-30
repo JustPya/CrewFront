@@ -47,7 +47,7 @@ export class FriendsPage implements OnInit {
       inputs: [
         {
           name: 'username',
-          type: 'text',
+          type: 'email',
           placeholder: 'Username',
         }
       ],
