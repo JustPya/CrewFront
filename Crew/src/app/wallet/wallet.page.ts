@@ -17,6 +17,8 @@ export class WalletPage implements OnInit {
   user: User;
   numExpenses: number;
   exp: PersonalExpense;
+  pExpenses: number;
+  groupsE: number;
   personalExpenses: Array<PersonalExpense>;
   groups: Group[];
   totalGroupExpenses: number;
@@ -44,7 +46,6 @@ export class WalletPage implements OnInit {
           ]
         }]
     };
-  }
 
   showDialogToAdd() {
     this.displayExpensesList = false;
@@ -62,8 +63,41 @@ export class WalletPage implements OnInit {
     this.updateUser(this.personalExpenses);
     this.displayExpenses = false;
     this.numExpenses = this.personalExpenses.length;
-    console.log(this.user);
+    this.updateChart();
+  }
 
+  /**
+   * Update Chart
+   */
+  updateChart() {
+    this.pExpenses = 0;
+    this.personalExpenses.forEach(f =>{
+      this.pExpenses += f.amount;
+    });
+    this.drawChart(this.pExpenses, 20, 10);
+  }
+
+  /**
+   * Draw Chart
+   */
+  drawChart(a: number, b: number, c: number) {
+    this.data = {
+      labels: ['P. Expenses', 'Groups E', 'C'],
+      datasets: [
+          {
+              data: [a, b, c],
+              backgroundColor: [
+                  '#FF6384',
+                  '#36A2EB',
+                  '#FFCE56'
+              ],
+              hoverBackgroundColor: [
+                  '#FF6384',
+                  '#36A2EB',
+                  '#FFCE56'
+              ]
+          }]
+      };
   }
 
   /**
@@ -87,6 +121,9 @@ export class WalletPage implements OnInit {
   ngOnInit() {
     this.userService.currentUser.subscribe(data => {
       this.user = data;
+      this.personalExpenses = data.personalExpenses;
+      this.numExpenses = data.personalExpenses.length;
+      this.updateChart();
     });
 
     this.personalExpenses = new Array<PersonalExpense>();
