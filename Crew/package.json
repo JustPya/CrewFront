@@ -96,9 +96,7 @@
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.801441567235-cbj44s32egviqcp515fp258g6luo1jdp",
         "WEB_APPLICATION_CLIENT_ID": "801441567235-llsbqsmnkri0hklb6587v0oqpqcagr6v.apps.googleusercontent.com"
       },
-      "cordova-plugin-email-composer": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      "cordova-plugin-email-composer": {}
     },
     "platforms": [
       "ios",
