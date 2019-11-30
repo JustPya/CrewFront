@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Expense, Debtor, Participant, Group } from '../models/Group';
 import { Friend, User } from '../models/User';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
 import { GroupService } from '../services/group.service';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-group-items',
@@ -42,6 +43,7 @@ export class GroupItemsPage implements OnInit {
   constructor(
     private menu: MenuController,
     private router: ActivatedRoute,
+    private route: Router,
     private groupService: GroupService,
     private userService: UserService) {
   }
@@ -117,7 +119,7 @@ export class GroupItemsPage implements OnInit {
       this.exp.deb.push(this.deb);
     });
     console.log(this.expenses);
-    const duplicateExp = this.expenses.findIndex(f => f.name.toLocaleLowerCase() == this.exp.name.toLocaleLowerCase());
+    const duplicateExp = this.expenses.findIndex(f => f.name.toLocaleLowerCase() === this.exp.name.toLocaleLowerCase());
     if (duplicateExp === -1) {
       this.expenses.push(this.exp);
       this.exp = new Expense();
@@ -162,7 +164,7 @@ export class GroupItemsPage implements OnInit {
    */
   addMember(i: number) {
     const friend = this.friends[i];
-    const isMember = this.participants.findIndex(f => f.name.toLocaleLowerCase() == friend.name.toLocaleLowerCase());
+    const isMember = this.participants.findIndex(f => f.name.toLocaleLowerCase() === friend.name.toLocaleLowerCase());
     if (isMember === -1) {
       const newParticipant = new Participant(friend.name, friend.uID);
       const newDeb = new Debtor(friend.name, friend.uID);
@@ -183,6 +185,11 @@ export class GroupItemsPage implements OnInit {
     this.group.participants = par;
     this.group.expenses = exp;
     this.groupService.updateGroup(this.id, this.group);
+  }
+
+  deleteGroup() {
+    this.groupService.deleteGroup(this.id);
+    this.route.navigateByUrl('tabs/groups');
   }
 
   getTotal() {
