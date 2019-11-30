@@ -5,6 +5,7 @@
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-text id="header">Settings</ion-text>
   </ion-toolbar>
 </ion-header>  
 
@@ -17,29 +18,29 @@
   </div>
   <ion-list>
     <ion-list-header>
-      Perfil
+      Profile
     </ion-list-header>
-    <ion-item lines='none'>
+    <ion-item lines='none' (click)="nameAlert()">
       <ion-label>
-        Nombre
-        <p>Cambiar nombre</p>
+        Name
+        <p>Change Username</p>
       </ion-label>
     </ion-item>
-    <ion-item lines='none'>
+    <ion-item lines='none' (click)="passwordAlert()">
       <ion-label>
-        Contraseña
-        <p>Cambiar contraseña</p>
+        Password
+        <p>Change Password</p>
       </ion-label>
     </ion-item>
   </ion-list>
   <ion-list>
     <ion-list-header>
-        Telefono
+        Telephone
     </ion-list-header>
     <ion-item lines='none'>
       <ion-label>
-        Habilitar notificaciones
-        <p>Activa el uso de notificaciones</p>
+        Enable Notifications
+        <p>Activate the use of notifications</p>
       </ion-label>
       <ion-toggle></ion-toggle>
     </ion-item>
