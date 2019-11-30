@@ -82,6 +82,7 @@ export class LoginPage implements OnInit {
         scopes: 'profile email'
       });
 
+      this.userService.updateUserData(gplusUser.idToken.user, gplusUser.idToken.user.displayName);
       return await this.authService.loginWithCredentials(gplusUser.idToken);
     } catch (err) {
       this.hideLoader();
