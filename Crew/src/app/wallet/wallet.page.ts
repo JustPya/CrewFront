@@ -14,29 +14,14 @@ export class WalletPage {
   user: User;
   numExpenses: number;
   exp: PersonalExpense;
+  pExpenses: number;
+  groupsE: number;
   personalExpenses: Array<PersonalExpense>;
 
   displayExpenses = false;
   displayExpensesList = false;
 
   constructor(private userService: UserService) {
-    this.data = {
-      labels: ['A', 'B', 'C'],
-      datasets: [
-          {
-              data: [0, 0, 10],
-              backgroundColor: [
-                  '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
-              ],
-              hoverBackgroundColor: [
-                  '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
-              ]
-          }]
-      };
   }
 
   showDialogToAdd() {
@@ -55,8 +40,41 @@ export class WalletPage {
     this.updateUser(this.personalExpenses);
     this.displayExpenses = false;
     this.numExpenses = this.personalExpenses.length;
-    console.log(this.user);
+    this.updateChart();
+  }
 
+  /**
+   * Update Chart
+   */
+  updateChart() {
+    this.pExpenses = 0;
+    this.personalExpenses.forEach(f =>{
+      this.pExpenses += f.amount;
+    });
+    this.drawChart(this.pExpenses, 20, 10);
+  }
+
+  /**
+   * Draw Chart
+   */
+  drawChart(a: number, b: number, c: number) {
+    this.data = {
+      labels: ['P. Expenses', 'Groups E', 'C'],
+      datasets: [
+          {
+              data: [a, b, c],
+              backgroundColor: [
+                  '#FF6384',
+                  '#36A2EB',
+                  '#FFCE56'
+              ],
+              hoverBackgroundColor: [
+                  '#FF6384',
+                  '#36A2EB',
+                  '#FFCE56'
+              ]
+          }]
+      };
   }
 
   /**
@@ -80,15 +98,14 @@ export class WalletPage {
   ngOnInit() {
     this.userService.currentUser.subscribe(data => {
       this.user = data;
+      this.personalExpenses = data.personalExpenses;
+      this.numExpenses = data.personalExpenses.length;
+      this.updateChart();
     });
 
     this.personalExpenses = new Array<PersonalExpense>();
     this.numExpenses = this.personalExpenses.length;
     this.exp = new PersonalExpense();
-    console.log(this.personalExpenses);
-
-    //this.user = this.userService.globalUser;
-   // console.log(this.user);
   }
 
 }
