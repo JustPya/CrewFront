@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
+import { UserService } from '../services/user.service';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-settings',
@@ -8,7 +10,16 @@ import { MenuController, AlertController } from '@ionic/angular';
 })
 export class SettingsPage implements OnInit {
 
-  constructor(private menu: MenuController, private alertController: AlertController) { }
+  currentUser: User;
+  name: string;
+  constructor(private menu: MenuController, 
+              private alertController: AlertController,
+              private userService: UserService) {
+                this.userService.currentUser.subscribe( data => {
+                  this.currentUser = data;
+                  this.name = data.name;
+                });
+               }
 
   openMenu() {
     console.log("do some");
